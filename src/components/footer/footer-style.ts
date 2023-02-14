@@ -15,13 +15,13 @@ export const Wrapper = styled.div`
   }
 `
 export const FooterText = styled.footer`
-  font-family: 'Montserrat';
-  font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  letter-spacing: 0.1px;
-  color: #363636;
+  @media screen and (max-width: 320px) {
+    display: flex;
+    flex-direction: column;
+  }
 `
 
 export const SocialIcon = styled.div`
