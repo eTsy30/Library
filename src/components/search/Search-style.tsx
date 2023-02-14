@@ -7,9 +7,13 @@ export const SearchInput = styled.input`
   outline: none;
   border: none;
   width: 100%;
+  max-width: 350px;
   color: #a7a7a7;
   @media screen and (max-width: 768px) {
     width: 274px;
+  }
+  @media screen and (max-width: 600px) {
+    width: 100%;
   }
   @media screen and (max-width: 320px) {
     width: 100%;
@@ -33,7 +37,10 @@ export const Div = styled.div<ISearchButton>`
   outline: none;
   align-items: center;
   @media screen and (max-width: 768px) {
-    width: 274px;
+    width: 100%;
+  }
+  @media screen and (max-width: 600px) {
+    width: 100%;
   }
   @media screen and (max-width: 320px) {
     width: 100%;

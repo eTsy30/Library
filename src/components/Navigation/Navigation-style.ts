@@ -12,6 +12,14 @@ export const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 42px;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    gap: 16px;
+  }
+  @media screen and (max-width: 600px) {
+    width: 100%;
+    gap: 16px;
+  }
 `
 
 export const ButtonFilter = styled.button<IActive>`
@@ -27,13 +35,24 @@ export const ButtonFilter = styled.button<IActive>`
   gap: 8px;
   height: 38px;
   color: #a7a7a7;
-  padding: 10px 40px;
+  width: 100%;
+  max-width: 148px;
+  & > * {
+    width: 100%;
+    margin-left: 16px;
+    min-width: 148px;
+    margin-left: 16px;
+  }
   @media screen and (max-width: 768px) {
-    width: 148px;
-    padding: 0px 0px 0px 30px;
+    padding-left: 10px;
+    max-width: 148px;
+    & > * {
+      margin-left: 16px;
+    }
   }
   @media screen and (max-width: 320px) {
-    width: 32px;
+    max-width: 32px;
+    min-width: 32px;
     height: 32px;
     padding: 0px;
     display: flex;
@@ -91,6 +110,7 @@ export const ButtonLinar = styled(ButtonTablet)<IActive>`
 
 export const LeftSide = styled.div`
   display: flex;
+  width: 100%;
   @media screen and (max-width: 320px) {
     width: 100%;
   }

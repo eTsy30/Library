@@ -14,11 +14,9 @@ export const isActiveBurger = createSlice({
   initialState,
   reducers: {
     setBurgerActive: (state, action: PayloadAction<boolean>) => {
-      // eslint-disable-next-line no-param-reassign
       state.value = action.payload
     },
   },
 })
-// eslint-disable-next-line import/no-default-export
 export default isActiveBurger.reducer
 export const { setBurgerActive } = isActiveBurger.actions
