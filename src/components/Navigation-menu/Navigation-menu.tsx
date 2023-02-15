@@ -18,11 +18,9 @@ export const NavigationMenu = ({ children }: Props) => {
   const dispatch = useAppDispatch()
   const menuActite = useAppSelector((state) => state.isActiveBurger.value)
   const menuBook = useAppSelector((state) => state.isActiveBookMenu.value)
-  console.log(menuBook)
 
   return (
     <Navigate>
-      <button onClick={() => dispatch(setActiveBookMenu(!menuBook))}>dddd</button>
       <UlLink data-test-id='navigation-showcase'>
         <TitleWrapper $isOpen={menuBook}>
           <LinkNavigation istitle={true} to='/books'>

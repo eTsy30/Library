@@ -1,4 +1,3 @@
-// import { ModalMenu } from 'components/modal-menu'
 import { SetStateAction, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -8,6 +7,7 @@ import { CardHorisontal } from 'components/Card-horisontal'
 import { CardVertical } from 'components/Card-vertical/Card-vertical'
 import { Footer } from 'components/Footer'
 import { Header } from 'components/Header/Header'
+import { ModalMenu } from 'components/Modal-menu'
 import { Navigation } from 'components/Navigation'
 
 import { NavigationMenu } from 'components/Navigation-menu'
@@ -18,7 +18,7 @@ export const MainPage = () => {
   const [direction, setDirection] = useState()
   const handleChange = (diretion: SetStateAction<undefined>) => setDirection(diretion)
   const width = useWidth()
-
+  const a = window.innerWidth - 50
   return (
     <Container>
       <Wrapper>
@@ -27,7 +27,7 @@ export const MainPage = () => {
           imgAvatar='https://avatars.mds.yandex.net/i?id=2fd47a896e5c07a593a1521c677d9d73f43c45fa-5870396-images-thumbs&n=13'
         />
         <Main>
-          {width >= 786 ? <NavigationMenu /> : ''}
+          {window.innerWidth >= 768 ? <NavigationMenu /> : ''}
           <Content>
             <Navigation onChange={handleChange} />
             <ListCard>
@@ -59,7 +59,7 @@ export const MainPage = () => {
         </Main>
         <Footer />
       </Wrapper>
-      {/* {width <= 786 ? <ModalMenu /> : ''} */}
+      {width < 768 ? <ModalMenu /> : ''}
     </Container>
   )
 }

@@ -10,7 +10,7 @@ export const SearchInput = styled.input`
   max-width: 350px;
   color: #a7a7a7;
   @media screen and (max-width: 768px) {
-    width: 274px;
+    /* width: 274px; */
   }
   @media screen and (max-width: 600px) {
     width: 100%;

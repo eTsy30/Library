@@ -17,6 +17,9 @@ export const UlTitle = styled.ul<IUlTitle>`
     font-size: 16px;
     line-height: 24px;
   }
+  @media screen and (max-width: 320px) {
+    margin: 16px 0px 42px 0px !important;
+  }
 `
 export const UlLink = styled.ul`
   & > li {
@@ -26,16 +29,17 @@ export const UlLink = styled.ul`
     font-size: 18px;
     line-height: 28px;
   }
+
+  @media screen and (max-width: 320px) {
+    width: 90%;
+  }
 `
 export const Navigate = styled.nav`
   padding-right: 3px;
   width: 279px;
-  @media screen and (max-width: 768px) {
-    & > li:not(li:last-child) {
-      margin-bottom: 16px;
-      color: green;
-    }
-  }
+  /* @media screen and (max-width: 768px) {
+    width: 100%;
+  } */
 `
 
 export const StrokeButton = styled(Stroke)<IStrokeButton>`
@@ -51,10 +55,8 @@ export const StrokeButton = styled(Stroke)<IStrokeButton>`
 export const SpanText = styled.span`
   padding-left: 6px;
 `
-
-export const Div = styled.div`
-  display: none;
-`
 export const TitleWrapper = styled.li<IStrokeButton>`
+  display: flex;
+  justify-content: space-between;
   padding-bottom: ${(props) => (props.$isOpen ? '0px' : '42px')};
 `

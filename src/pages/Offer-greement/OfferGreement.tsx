@@ -25,7 +25,7 @@ export const OfferGreement = () => {
         </Main>
         <Footer />
       </Wrapper>
-      {/* {width <= 786 ? <ModalMenu /> : ''} */}
+      {/* {width <= 768 ? <ModalMenu /> : ''} */}
     </Container>
   )
 }

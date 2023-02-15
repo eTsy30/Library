@@ -8,7 +8,7 @@ export const Title = styled.h1`
   letter-spacing: 0.1px;
   color: #363636;
 
-  @media screen and (max-width: 480px) {
+  @media screen and (max-width: 320px) {
     & {
       margin-bottom: 24px;
       font-size: 18px;
@@ -26,13 +26,9 @@ export const UlLevelOne = styled.ul`
   line-height: 24px;
   letter-spacing: 0.1px;
   color: #363636;
+  width: 100%;
   & > li:not(li:first-child) {
     margin-top: 32px;
-  }
-  @media screen and (max-width: 480px) {
-    & {
-      width: 288px;
-    }
   }
 `
 export const UlLevelTwo = styled.ul`
@@ -47,7 +43,7 @@ export const UlLevelTwo = styled.ul`
     margin-top: 16px;
   }
 
-  @media screen and (max-width: 480px) {
+  @media screen and (max-width: 320px) {
     & {
       font-size: 15px;
       line-height: 20px;

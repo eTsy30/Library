@@ -11,11 +11,13 @@ export const Wrapper = styled.div`
 
   @media screen and (max-width: 768px) {
     & {
-      max-width: 640px;
+      max-width: 83%;
+      margin: 0 auto;
     }
   }
   @media screen and (max-width: 320px) {
-    max-width: 288px;
+    max-width: 90%;
+    margin: 0 auto;
     padding-bottom: 124px;
   }
 `
