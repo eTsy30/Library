@@ -1,4 +1,4 @@
-import { FooterText, SocialIcon, Wrapper } from './footer-style'
+import { FooterText, SocialIcon, Wrapper } from './Footer-style'
 
 import { ReactComponent as Facebook } from 'assets/icon/IconFacebook.svg'
 import { ReactComponent as Insta } from 'assets/icon/IconInsta.svg'
@@ -9,7 +9,10 @@ const YEAR = new Date().getFullYear()
 
 export const Footer = () => (
   <Wrapper>
-    <FooterText>© 2020-{YEAR} Cleverland. Все права защищены.</FooterText>
+    <FooterText>
+      <span>© 2020-{YEAR} Cleverland.</span>
+      <span>Все права защищены.</span>
+    </FooterText>
     <SocialIcon>
       <Facebook />
       <Insta />
