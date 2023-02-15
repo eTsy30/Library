@@ -18,7 +18,7 @@ import BlockCat from 'assets/img/BlockCat.png'
 
 import { ICard } from 'types/card'
 
-export const CardHorisontal = ({ image, title, autor, raiting }: any) => (
+export const CardHorisontal = ({ image, title, autor, raiting }: ICard | any) => (
   <Wrapper data-test-id='card'>
     <Container>
       {image ? <Image src={image} alt='' /> : <Image src={BlockCat} alt='' />}

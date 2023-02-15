@@ -37,9 +37,6 @@ export const UlLink = styled.ul`
 export const Navigate = styled.nav`
   padding-right: 3px;
   width: 279px;
-  /* @media screen and (max-width: 768px) {
-    width: 100%;
-  } */
 `
 
 export const StrokeButton = styled(Stroke)<IStrokeButton>`

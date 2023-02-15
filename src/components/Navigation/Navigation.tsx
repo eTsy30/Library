@@ -1,4 +1,4 @@
-import { SetStateAction, MouseEventHandler, useEffect, useState } from 'react'
+import { SetStateAction, MouseEventHandler, useState } from 'react'
 
 import { ButtonFilter, ButtonLinar, ButtonTablet, ImgSearch, LeftSide, RightSide, Wrapper } from './Navigation-style'
 

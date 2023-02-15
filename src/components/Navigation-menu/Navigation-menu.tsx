@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import { LiText, Navigate, SpanText, StrokeButton, UlLink, UlTitle, TitleWrapper } from './Navigation-meny-style'
 
 import { LinkNavigation } from 'components/Link/link'

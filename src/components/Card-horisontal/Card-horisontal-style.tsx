@@ -17,7 +17,6 @@ export const Wrapper = styled.div`
     font-weight: 700;
     font-size: 24px;
     line-height: 30px;
-    letter-spacing: 0.1px;
   }
   @media screen and (max-width: 320px) {
     width: 288px;
