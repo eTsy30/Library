@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
-import { A11y, Pagination, type Swiper as EffectCoverflow } from 'swiper'
-import { FreeMode, Navigation, Thumbs } from 'swiper'
+import { A11y, type Swiper as EffectCoverflow } from 'swiper'
+import { FreeMode, Navigation, Thumbs, Pagination } from 'swiper'
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { v4 as uuidv4 } from 'uuid'
@@ -14,6 +14,7 @@ import 'swiper/css'
 import 'swiper/css/free-mode'
 import 'swiper/css/navigation'
 import 'swiper/css/thumbs'
+import 'swiper/css/pagination'
 
 import { useWidth } from 'hooks/use-width'
 import { ICard } from 'types/card'
@@ -25,9 +26,10 @@ const BigImg = styled.img`
 
   @media screen and (max-width: 768px) {
     min-width: 136px;
+    min-height: 198px;
     border-radius: 3px;
   }
-  @media screen and (max-width: 480px) {
+  @media screen and (max-width: 320px) {
     max-width: 188px;
     width: 100%;
     border-radius: 10px;
@@ -39,17 +41,19 @@ export const SliderImage = ({ image }: ICard) => {
   const weight = useWidth()
 
   return image!.length > 0 ? (
-    <React.Fragment>
+    <div className='qwe'>
       <Swiper
         tag='section'
-        pagination={{ clickable: true }}
         initialSlide={1}
         centeredSlides={true}
         data-test-id='slide-big'
+        pagination={{
+          clickable: true,
+        }}
         spaceBetween={10}
         thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
-        modules={[FreeMode, Navigation, Thumbs, Pagination, A11y]}
-        className='slider__second  mySwiper'
+        modules={[FreeMode, Navigation, Pagination, Thumbs, A11y]}
+        className='mySwiper2 slider__second'
       >
         {image &&
           image.map((img: string | undefined) => (
@@ -64,11 +68,11 @@ export const SliderImage = ({ image }: ICard) => {
         slidesPerView={5}
         freeMode={true}
         watchSlidesProgress={true}
+        modules={[FreeMode, Thumbs, Pagination]}
         pagination={{
           clickable: true,
         }}
-        modules={[FreeMode, Thumbs, Pagination]}
-        className='slider__main'
+        className='mySwiper slider__main'
       >
         {image &&
           image.map((img: string | undefined) => (
@@ -77,7 +81,7 @@ export const SliderImage = ({ image }: ICard) => {
             </SwiperSlide>
           ))}
       </Swiper>
-    </React.Fragment>
+    </div>
   ) : (
     <React.Fragment>
       {' '}
@@ -86,6 +90,14 @@ export const SliderImage = ({ image }: ICard) => {
       ) : (
         <img src={BlockCat} alt='no book img' className='slider__wrapper-second' />
       )}
+      <Swiper pagination={true} modules={[Pagination]} className='mySwiper'>
+        {image &&
+          image.map((img: string | undefined) => (
+            <SwiperSlide key={uuidv4()} data-test-id='slide-mini'>
+              <img alt='d' className='slider__image' src={img} />
+            </SwiperSlide>
+          ))}
+      </Swiper>
     </React.Fragment>
   )
 }

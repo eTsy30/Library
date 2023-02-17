@@ -33,9 +33,9 @@ export const Container = styled.div`
   box-sizing: border-box;
 
   @media screen and (max-width: 320px) {
-    display: flex;
-    justify-content: center;
     gap: 8px;
+    max-width: 186px;
+    width: 100%;
   }
 `
 export const TextContainer = styled.div`
@@ -108,18 +108,24 @@ export const Title = styled.h4`
   }
 `
 
-export const Autor = styled.span`
+export const Autor = styled.p`
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
   letter-spacing: 0.1px;
   color: #727272;
+  display: block;
+
   @media screen and (max-width: 768px) {
     font-weight: 400;
+    text-overflow: ellipsis;
   }
   @media screen and (max-width: 320px) {
     font-weight: 400;
     font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap; /* Запрещаем перенос строк */
+    overflow: hidden; /* Обрезаем все, что не помещается в область */
   }
 `
 export const Button = styled.button`

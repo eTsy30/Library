@@ -8,6 +8,5 @@ export const About = ({ description }: ICard) => (
   <React.Fragment>
     <TitleAbout>О книге</TitleAbout>
     <TextAbout>{description}</TextAbout>
-    <TextAbout>{description}</TextAbout>
   </React.Fragment>
 )
