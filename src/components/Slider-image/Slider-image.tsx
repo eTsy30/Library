@@ -38,7 +38,6 @@ const BigImg = styled.img`
 
 export const SliderImage = ({ image }: ICard) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<any | null>(null)
-  const weight = useWidth()
 
   return image!.length > 0 ? (
     <div className='qwe'>

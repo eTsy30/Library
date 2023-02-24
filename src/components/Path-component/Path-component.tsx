@@ -2,12 +2,12 @@ import { Container, ImgSlash, Text, Title } from './Path-component-style'
 
 import slach from 'assets/img/Slash.png'
 
-export const PathComponent = () => (
+export const PathComponent = ({ categiria, name }: any) => (
   <Container>
     <Title>
-      <Text>Бизнес книги</Text>
+      <Text>{categiria}</Text>
       <ImgSlash src={slach} alt='slach' />
-      <Text>Грокаем алгоритмы Иллюстрированное пособие для программистов и любопытствующих</Text>
+      <Text>{name}</Text>
     </Title>
   </Container>
 )

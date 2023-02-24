@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { SetStateAction, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -12,13 +13,27 @@ import { Navigation } from 'components/Navigation'
 
 import { NavigationMenu } from 'components/Navigation-menu'
 import { useWidth } from 'hooks/use-width'
-import { books } from 'test/categorii'
 
 export const MainPage = () => {
   const [direction, setDirection] = useState()
   const handleChange = (diretion: SetStateAction<undefined>) => setDirection(diretion)
   const width = useWidth()
-  const a = window.innerWidth - 50
+  const [books, setBooks] = useState([])
+  useEffect(() => {
+    const fechData = async () => {
+      try {
+        const { data } = await axios.get('http://localhost:1337/api/' + 'books?populate=*', {
+          headers: {
+            Authorization: 'berer' + process.env.REACT_APP_API_TOKEN,
+          },
+        })
+        setBooks(data.data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fechData()
+  })
   return (
     <Container>
       <Wrapper>
@@ -31,25 +46,23 @@ export const MainPage = () => {
           <Content>
             <Navigation onChange={handleChange} />
             <ListCard>
-              {books.map((card) => (
-                <Link to={`/books/${card.category}/${card.id}`} key={card.id}>
+              {books.map((card: any) => (
+                <Link to={`/books/${card.attributes.categories.data[0].attributes.path}/${card.id}`} key={card.id}>
                   {direction ? (
                     <CardHorisontal
-                      data-test-id='card'
-                      autor={card.author}
-                      title={card.name}
-                      raiting={card.score}
-                      image={card.img[0]}
-                      year={1111}
+                      autor={card.attributes.authors}
+                      title={card.attributes.title}
+                      raiting={card.attributes.rating}
+                      image={'http://localhost:1337' + card.attributes.image.data[0].attributes.url}
+                      year={card.attributes.issueYear}
                     />
                   ) : (
                     <CardVertical
-                      data-test-id='card'
-                      autor={card.author}
-                      title={card.name}
-                      raiting={card.score}
-                      image={card.img[0]}
-                      year={1111}
+                      autor={card.attributes.authors}
+                      title={card.attributes.title}
+                      raiting={card.attributes.rating}
+                      image={'http://localhost:1337' + card.attributes.image.data[0].attributes.url}
+                      year={card.attributes.issueYear}
                     />
                   )}
                 </Link>

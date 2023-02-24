@@ -1,5 +1,5 @@
-import { useMemo } from 'react'
-
+import axios from 'axios'
+import { useMemo, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { Container, Content, RaytingContainer, RaytingTitle, RaytingWrapper, WrapperHead } from './Book-page-style'
@@ -18,7 +18,24 @@ import { books } from 'test/categorii'
 export const BookPage = () => {
   const { bookId } = useParams()
   const bookInformation = useMemo(() => books.find((book) => book.id === bookId), [bookId])
-
+  const [book, setBooks] = useState(null)
+  useEffect(() => {
+    const fechData = async () => {
+      try {
+        const { data } = await axios.get('http://localhost:1337/api/' + 'books/' + bookId + '?populate=*', {
+          headers: {
+            Authorization: 'berer' + process.env.REACT_APP_API_TOKEN,
+          },
+        })
+        setBooks(data.data)
+        console.log(data.data, book)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fechData()
+  }, [])
+  console.log(book?.attributes)
   return (
     <Container data-test-id='card'>
       <WrapperHead>
@@ -27,26 +44,30 @@ export const BookPage = () => {
           imgAvatar='https://avatars.mds.yandex.net/i?id=2fd47a896e5c07a593a1521c677d9d73f43c45fa-5870396-images-thumbs&n=13'
         />
       </WrapperHead>
-      <PathComponent />
-      <Content>
-        <BookPresent
-          image={bookInformation.img}
-          description={bookInformation.description}
-          autor={bookInformation.author}
-          title={bookInformation.name}
-        />
-        <RaytingWrapper>
-          <RaytingTitle>Рейтинг</RaytingTitle>
-          <RaytingContainer>
-            <div>
-              <StarReiting rating={bookInformation.score} />
-            </div>
-            <span>{bookInformation.score}</span>
-          </RaytingContainer>
-        </RaytingWrapper>
-        <BookInformation />
-        <BookReviews reviews={bookInformation.reviews} />
-      </Content>
+      {book ? (
+        <>
+          <PathComponent categiria={book.attributes.categories.data[0].attributes.name} name={book.attributes.title} />
+          <Content>
+            <BookPresent
+              image={bookInformation.img}
+              description={book.attributes.description}
+              autor={book.attributes.authors}
+              title={book.attributes.title}
+            />
+            <RaytingWrapper>
+              <RaytingTitle>Рейтинг</RaytingTitle>
+              <RaytingContainer>
+                <StarReiting rating={book.attributes.rating} />
+                <span>{book.attributes.ratin}</span>
+              </RaytingContainer>
+            </RaytingWrapper>
+            <BookInformation information={book.attributes} />
+            <BookReviews reviews={bookInformation.reviews} />
+          </Content>
+        </>
+      ) : (
+        <h1>LOADER</h1>
+      )}
       <WrapperHead>
         <Footer />
       </WrapperHead>

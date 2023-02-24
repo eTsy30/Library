@@ -5,4 +5,12 @@ export interface ICard {
   autor?: string
   year?: number
   description?: string[]
+  publish?: string
+  pages?: number
+  cover?: string
+  weight?: string
+  format?: string
+  isbn?: string
+  producer?: string
+  issueYear?: string
 }
