@@ -5,13 +5,15 @@ import { Link, useLocation } from 'react-router-dom'
 import styled, { css } from 'styled-components'
 
 import { useActivePathname } from 'hooks/use-active-pathname'
+import { setCategory } from 'redux/getCategorii/getCategorii'
 import { useAppDispatch } from 'store/hook'
 import { ILink } from 'types/isActive'
 interface INavbarLink {
   to: string
-  children: ReactChild | React.ReactChild[]
+  children?: ReactChild | React.ReactChild[]
   istitle?: boolean
-  onClick?: any
+  onClick?: () => void
+  path?: any
 }
 
 const linkStyles = css`
@@ -21,7 +23,7 @@ const linkStyles = css`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   width: 90%;
-  padding-bottom: 8px;
+  /* padding-bottom: 8px; */
   font-weight: 700;
   font-size: 18px;
   line-height: 28px;
@@ -38,11 +40,17 @@ const NavbarLink = styled(Link)<ILink>`
   }
 `
 
-export const LinkNavigation = ({ to, children, istitle }: INavbarLink) => {
+export const LinkNavigation = ({ to, children, istitle, path }: INavbarLink) => {
   const isActive = useActivePathname(to)
   const dispatch = useAppDispatch()
   return (
-    <NavbarLink data-test-id='navigation-books' $istitle={istitle} $isActive={isActive} to={to}>
+    <NavbarLink
+      data-test-id='navigation-books'
+      onClick={() => dispatch(setCategory(path))}
+      $istitle={istitle}
+      $isActive={isActive}
+      to={to}
+    >
       {children}
     </NavbarLink>
   )

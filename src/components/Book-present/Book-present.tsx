@@ -13,7 +13,6 @@ import {
 import { About } from 'components/About'
 
 import { SliderImage } from 'components/Slider-image'
-import { useWidth } from 'hooks/use-width'
 import { ICard } from 'types/card'
 
 export const BookPresent = ({ image, title, autor, description }: ICard) => {

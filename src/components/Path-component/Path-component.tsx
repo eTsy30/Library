@@ -1,13 +1,18 @@
+import { Link } from 'react-router-dom'
+
 import { Container, ImgSlash, Text, Title } from './Path-component-style'
 
 import slach from 'assets/img/Slash.png'
+import { LinkNavigation } from 'components/Link/link'
 
-export const PathComponent = ({ categiria, name }: any) => (
+export const PathComponent = ({ categiria, title, path }: any) => (
   <Container>
     <Title>
-      <Text>{categiria}</Text>
+      <Link to={`/books/${path}`}>
+        <Text>{categiria}</Text>
+      </Link>
       <ImgSlash src={slach} alt='slach' />
-      <Text>{name}</Text>
+      <Text>{title}</Text>
     </Title>
   </Container>
 )

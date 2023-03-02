@@ -13,4 +13,5 @@ export interface ICard {
   isbn?: string
   producer?: string
   issueYear?: string
+  categories?: {}
 }

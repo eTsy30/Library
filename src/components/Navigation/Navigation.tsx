@@ -9,10 +9,13 @@ import { ReactComponent as TableIcon } from 'assets/icon/Table.svg'
 
 import { SearchComponent } from 'components/Search/Search'
 import { useWidth } from 'hooks/use-width'
+import { setReverseBook } from 'redux/getBook/getBooks'
+import { useAppDispatch } from 'store/hook'
 
 export const Navigation = ({ onChange }: any) => {
+  const dispach = useAppDispatch()
   const [isActiveFilter, setActiveFilter] = useState(false)
-  const [isActiveButton, setActiveButton] = useState(false)
+  const [isActiveButton, setActiveButton] = useState(true)
   const [isActiveSearch, setActiveSearch] = useState(true)
   const width = useWidth()
 
@@ -40,7 +43,13 @@ export const Navigation = ({ onChange }: any) => {
           <SearchComponent data-test-id='input-search' onChange={activeChange} isActiveSearch={isActiveSearch} />
         )}
         {width >= 320 || isActiveSearch ? (
-          <ButtonFilter $isActive={isActiveFilter} onClick={() => setActiveFilter(!isActiveFilter)}>
+          <ButtonFilter
+            $isActive={isActiveFilter}
+            onClick={() => {
+              setActiveFilter(!isActiveFilter)
+              dispach(setReverseBook())
+            }}
+          >
             <span>По рейтингу</span>
           </ButtonFilter>
         ) : (

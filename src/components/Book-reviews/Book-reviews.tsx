@@ -48,7 +48,7 @@ export const BookReviews = ({ reviews }: any) => {
             </ListReviews>
           ),
       )}
-      ;
+
       <Button data-test-id='button-rating' type='button'>
         оценить книгу
       </Button>

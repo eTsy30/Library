@@ -16,7 +16,6 @@ import 'swiper/css/navigation'
 import 'swiper/css/thumbs'
 import 'swiper/css/pagination'
 
-import { useWidth } from 'hooks/use-width'
 import { ICard } from 'types/card'
 
 const BigImg = styled.img`

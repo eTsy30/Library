@@ -4,7 +4,7 @@ import { Container, Main, Wrapper } from './Term-of-use-style'
 
 import { Footer } from 'components/Footer'
 import { Header } from 'components/Header/Header'
-// import { ModalMenu } from 'components/modal-menu'
+import { ModalMenu } from 'components/Modal-menu'
 import { NavigationMenu } from 'components/Navigation-menu/Navigation-menu'
 import { Terms } from 'components/Terms/Terms'
 import { useWidth } from 'hooks/use-width'
@@ -26,7 +26,7 @@ export const TermsUser = () => {
         <Footer />
       </Wrapper>
 
-      {/* {width <= 768 ? <ModalMenu /> : ''} */}
+      {width <= 768 ? <ModalMenu /> : ''}
     </Container>
   )
 }

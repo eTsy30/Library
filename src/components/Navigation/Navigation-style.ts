@@ -37,6 +37,12 @@ export const ButtonFilter = styled.button<IActive>`
   color: #a7a7a7;
   width: 100%;
   max-width: 148px;
+  :hover {
+    box-shadow: 0px 3px 4px rgba(222, 125, 11, 0.2), 0px 1px 10px rgba(249, 89, 8, 0.2);
+  }
+  :active {
+    box-shadow: 0px 3px 4px rgba(222, 125, 11, 0.2), 0px 1px 10px rgba(249, 89, 8, 0.2);
+  }
   & > * {
     width: 100%;
     margin-left: 16px;
@@ -78,6 +84,9 @@ export const ButtonTablet = styled.button<IActive>`
   :active {
     box-shadow: 0px 3px 4px rgba(222, 125, 11, 0.2), 0px 1px 10px rgba(249, 89, 8, 0.2);
   }
+  :hover {
+    box-shadow: 0px 3px 4px rgba(222, 125, 11, 0.2), 0px 1px 10px rgba(249, 89, 8, 0.2);
+  }
   & > svg > path {
     fill: ${(props) => (props.$isActive ? '#FFFFFF' : '#A7A7A7')};
   }
@@ -97,6 +106,9 @@ export const ButtonLinar = styled(ButtonTablet)<IActive>`
   background: ${(props) =>
     props.$isActive ? '#FFFFFF' : 'linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%)'};
   :active {
+    box-shadow: 0px 3px 4px rgba(222, 125, 11, 0.2), 0px 1px 10px rgba(249, 89, 8, 0.2);
+  }
+  :hover {
     box-shadow: 0px 3px 4px rgba(222, 125, 11, 0.2), 0px 1px 10px rgba(249, 89, 8, 0.2);
   }
   @media screen and (max-width: 320px) {

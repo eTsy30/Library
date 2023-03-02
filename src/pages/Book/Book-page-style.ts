@@ -4,6 +4,10 @@ export const Container = styled.section`
   width: 100%;
   margin: 0 auto;
   padding: 0px 64px;
+  height: 100vh;
+  position: relative;
+  min-height: 100%;
+
   @media screen and (max-width: 768px) {
     max-width: 83%;
     padding: 0px 64px;
@@ -21,6 +25,7 @@ export const WrapperHead = styled.div`
   width: 100%;
   max-width: 1110px;
   margin: 0 auto;
+  position: relative;
 `
 export const Content = styled.main`
   flex-direction: column;
@@ -72,4 +77,7 @@ export const RaytingContainer = styled.div`
     height: 34px;
     margin-top: 0;
   }
+`
+export const Wrapper = styled.div`
+  min-height: calc(100vh - 100px);
 `
