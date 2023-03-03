@@ -1,14 +1,11 @@
-import axios from 'axios'
 import { SetStateAction, useEffect, useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
 
-import { Container, Content, ListCard, Main, Wrapper, WarningMessage } from './Main-page-style'
+import { Container, Content, Main, Wrapper } from './Main-page-style'
 
 import { Error } from 'components/Alert-error'
-import { CardHorisontal } from 'components/Card-horisontal'
-import { CardVertical } from 'components/Card-vertical/Card-vertical'
 import { Footer } from 'components/Footer'
 import { Header } from 'components/Header/Header'
+import { ListofCard } from 'components/ListofCard'
 import { Spiner } from 'components/Loader-spiner'
 import { ModalMenu } from 'components/Modal-menu'
 import { Navigation } from 'components/Navigation'
@@ -16,6 +13,7 @@ import { NavigationMenu } from 'components/Navigation-menu'
 import { useWidth } from 'hooks/use-width'
 import { getAllBooks } from 'redux/getBook/getBooks'
 import { useAppDispatch, useAppSelector } from 'store/hook'
+
 export const MainPage = () => {
   const [direction, setDirection] = useState()
   const handleChange = (diretion: SetStateAction<undefined>) => setDirection(diretion)
@@ -25,25 +23,39 @@ export const MainPage = () => {
   const { books, isError } = useAppSelector((state) => state.getallBookReduser)
   const categories = useAppSelector((state) => state.getCategoriReduser.categories)
   const path = useAppSelector((state) => state.setCategory.categorii)
-  console.log(path)
+  const searshValue = useAppSelector((state) => state.setSearchValue.value)
 
-  useMemo(() => (path === '' ? setCategori('all') : setCategori(path)), [path])
-  const bookObj: { [index: string]: any } = {}
-  bookObj.all = books
-  categories.forEach((element: any, index: number) => {
-    bookObj[element?.attributes?.path] = books.filter((el: any) =>
-      el.attributes.categories.data.find((s: { id: number }) => s.id === Number(`${element.id}`)),
-    )
-  })
+  useEffect(() => (path === '' ? setCategori('all') : setCategori(path)), [path])
+
+  function getFilteredBooks(books: any, id: any) {
+    return books.filter((el: any) => el.attributes.categories.data.find((s: { id: number }) => s.id === id))
+  }
+
+  const bookObj: any = useMemo(() => {
+    const defaultObj: { [index: string]: any } = { all: books }
+    return categories.reduce((accum, element: any) => {
+      const list = getFilteredBooks(books, element.id)
+      return { ...accum, [element?.attributes?.path]: list }
+    }, defaultObj)
+  }, [books])
+
+  const bookArr = useMemo(() => {
+    const list = bookObj[categori]
+    if (searshValue.length === 0) {
+      return list
+    }
+    return list.filter((el: any) => {
+      return el.attributes.title.toLowerCase().includes(searshValue)
+    })
+  }, [searshValue, bookObj, categori])
+
   useEffect(() => {
     dispach(getAllBooks())
   }, [dispach])
 
-  document.body.style.overflow = books ? 'scroll' : 'hidden'
-
   return (
     <>
-      <Wrapper>
+      <Wrapper $isScroll={books ? 'scroll' : 'hidden'}>
         <Container>
           {isError ? <Error /> : ''}
           <Header
@@ -54,43 +66,7 @@ export const MainPage = () => {
             {window.innerWidth >= 768 ? <NavigationMenu /> : ''}
             <Content>
               <Navigation onChange={handleChange} />
-
-              {books.length > 0 ? (
-                <ListCard>
-                  {bookObj[`${categori}`].length >= 1 ? (
-                    bookObj[`${categori}`].map((card: any) => {
-                      return (
-                        <Link
-                          to={`/books/${card.attributes.categories?.data[0]?.attributes.path}/${card.id}`}
-                          key={card.id}
-                        >
-                          {direction ? (
-                            <CardHorisontal
-                              autor={card.attributes.authors}
-                              title={card.attributes.title}
-                              raiting={card.attributes.rating}
-                              image={`https://picsum.photos/320/240?v1`}
-                              year={card.attributes.issueYear}
-                            />
-                          ) : (
-                            <CardVertical
-                              autor={card.attributes.authors}
-                              title={card.attributes.title}
-                              raiting={card.attributes?.rating}
-                              image={`https://picsum.photos/320/240?v1`}
-                              year={card.attributes.issueYear}
-                            />
-                          )}
-                        </Link>
-                      )
-                    })
-                  ) : (
-                    <WarningMessage>Нет книг в данной категории</WarningMessage>
-                  )}
-                </ListCard>
-              ) : (
-                <Spiner />
-              )}
+              {books.length > 0 ? <ListofCard bookArr={bookArr} direction={direction} /> : <Spiner />}
             </Content>
           </Main>
         </Container>

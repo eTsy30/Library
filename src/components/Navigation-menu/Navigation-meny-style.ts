@@ -12,12 +12,14 @@ export const UlTitle = styled.ul<IUlTitle>`
   width: 100%;
   display: ${(props) => (props.$isOpenBook ? 'block' : 'none')};
   margin: 16px 0px 42px 20px !important;
+
   & > ${LiText} {
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
   }
   @media screen and (max-width: 320px) {
+    width: initial;
     margin: 16px 0px 42px 0px !important;
   }
 `
@@ -37,6 +39,9 @@ export const UlLink = styled.ul`
 export const Navigate = styled.nav`
   padding-right: 3px;
   width: 279px;
+  @media screen and (max-width: 320px) {
+    width: auto;
+  }
 `
 
 export const StrokeButton = styled(Stroke)<IStrokeButton>`

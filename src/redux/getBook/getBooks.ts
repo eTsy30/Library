@@ -47,7 +47,6 @@ const getallBookReduser = createSlice({
         state.books = action.payload
         state.isLoading = false
         state.isError = false
-        console.log(state.categorii, 'setBook')
       })
       .addCase(getAllBooks.rejected, (state) => {
         state.isLoading = false
@@ -65,9 +64,6 @@ const getallBookReduser = createSlice({
       state.books = state.books.filter((el: any) =>
         el.attributes.categories.data.find((s: { id: number }) => s.id === Number(`${action.payload}`)),
       )
-    },
-    setBook: (state: any, action: any) => {
-      console.log(state, 'setBook')
     },
   },
 })

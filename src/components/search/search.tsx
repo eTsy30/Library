@@ -6,13 +6,17 @@ import { ReactComponent as Close } from 'assets/icon/Close.svg'
 import { ReactComponent as Search } from 'assets/icon/Search.svg'
 
 import { useWidth } from 'hooks/use-width'
+import { setSearchValue } from 'redux/setSearch/setSearch'
+import { useAppDispatch } from 'store/hook'
 
 export const SearchComponent = ({ onChange, isActiveSearch }: any) => {
+  const dispach = useAppDispatch()
   const [inputChange, setInputChang] = useState('')
   const [isActive, setActiveSearch] = useState(isActiveSearch)
   const width = useWidth()
   function SearchChange(e: ChangeEvent<HTMLInputElement>): void {
-    setInputChang(e.target.value)
+    setInputChang(e.target.value.toLowerCase())
+    dispach(setSearchValue(e.target.value.toLowerCase()))
   }
 
   const activeChange: MouseEventHandler = () => {

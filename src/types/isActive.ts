@@ -15,3 +15,6 @@ export interface IStrokeButton {
   $isActive?: boolean
   $isOpen?: boolean
 }
+export interface IScroll {
+  $isScroll: string
+}

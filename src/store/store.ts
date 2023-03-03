@@ -9,6 +9,7 @@ import getCategoriReduser from 'redux/getCategorii/getCategorii'
 import setCategory from 'redux/getCategorii/getCategorii'
 import getOneBookReduser from 'redux/getOneBook/getOneBook'
 import isActiveBookMenu from 'redux/IsActiveBookMenu/IsActiveBookMenu'
+import setSearchValue from 'redux/setSearch/setSearch'
 
 export const store = configureStore({
   reducer: {
@@ -21,6 +22,7 @@ export const store = configureStore({
     setCategorii,
     getCategoriReduser,
     setCategory,
+    setSearchValue,
   },
 })
 export type RootState = ReturnType<typeof store.getState>

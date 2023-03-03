@@ -20,7 +20,6 @@ export const getOneBook = createAsyncThunk('get/getOneBook', async (id: string, 
         Authorization: 'berer' + process.env.REACT_APP_API_TOKEN,
       },
     })
-    console.log(response.data.data, 'response')
 
     if (response.statusText !== 'OK') {
       throw new Error('Errore!')

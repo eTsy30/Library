@@ -14,7 +14,7 @@ export const ModalMenu = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    document.body.style.overflow = menuActite === true ? 'scroll' : 'hidden'
+    document.body.style.overflow = menuActite ? 'scroll' : 'hidden'
   }, [menuActite])
   if (menuActite) return null
 
