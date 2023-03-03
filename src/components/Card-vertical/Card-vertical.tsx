@@ -8,13 +8,14 @@ import BlockCat from 'assets/img/BlockCat.png'
 
 import { ICard } from 'types/card'
 
-export const CardVertical = ({ image, title, autor, raiting }: ICard | any) => (
+export const CardVertical = ({ image, title, autor, raiting, year }: ICard | any) => (
   <Wrapper data-test-id='card'>
     <React.Fragment>
       {image ? <Image src={image} alt={BlockCat} /> : <Image src={BlockCat} alt='' />}
       {raiting ? <StarReiting rating={raiting} /> : <Text>ещё нет оценок</Text>}
       <Title>{title}</Title>
       <Autor>{autor}</Autor>
+      <Autor>{year}</Autor>
     </React.Fragment>
     <Button onClick={() => {}}>Забронировать</Button>
   </Wrapper>

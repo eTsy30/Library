@@ -14,14 +14,14 @@ export const Header = ({ name, imgAvatar }: IUser) => {
 
   return (
     <Wrapper>
-      {/* <Link to='/'> */}
-      <Image src={Logo} alt='Logo' />
-      {burgerActite ? (
-        <Burger data-test-id='button-burger' onClick={() => dispatch(setBurgerActive(!burgerActite))} />
-      ) : (
-        <Close data-test-id='button-burger' onClick={() => dispatch(setBurgerActive(!burgerActite))} />
-      )}
-      {/* </Link> */}
+      <Link to='/'>
+        <Image src={Logo} alt='Logo' />
+        {burgerActite ? (
+          <Burger data-test-id='button-burger' onClick={() => dispatch(setBurgerActive(!burgerActite))} />
+        ) : (
+          <Close data-test-id='button-burger' onClick={() => dispatch(setBurgerActive(!burgerActite))} />
+        )}
+      </Link>
       <Container>
         <Title>Библиотека</Title>
         <ContainerUser>

@@ -7,10 +7,7 @@ import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
 
 import { GlobalStyle } from './GlobalStyle'
 
-// import { Footer } from 'components/Footer'
-// import { Header } from 'components/Header'
-// import { Navigation } from 'components/Navigation'
-// import { NavigationMenu } from 'components/Navigation-menu'
+import { BookPage } from 'pages/Book'
 import { MainPage } from 'pages/Main'
 import { OfferGreement } from 'pages/Offer-greement/OfferGreement'
 import { TermsUser } from 'pages/Terms-of-use/Terms-of-use'
@@ -29,7 +26,8 @@ root.render(
           </Route>
           <Route path='/terms' element={<TermsUser />} />
           <Route path='/offer-greement' element={<OfferGreement />} />
-          {/* <Route path='/books/:category/:bookId' element={<BookPage />} /> */}
+          <Route path='/books/:category/:bookId' element={<BookPage />} />
+          <Route path='/books/:category/' element={<MainPage />} />
           <Route path='*' element={<Navigate to='books' replace={true} />} />
         </Routes>
       </HashRouter>

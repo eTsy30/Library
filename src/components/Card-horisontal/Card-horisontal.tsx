@@ -18,13 +18,14 @@ import BlockCat from 'assets/img/BlockCat.png'
 
 import { ICard } from 'types/card'
 
-export const CardHorisontal = ({ image, title, autor, raiting }: any) => (
+export const CardHorisontal = ({ image, title, autor, raiting, year }: ICard | any) => (
   <Wrapper data-test-id='card'>
     <Container>
       {image ? <Image src={image} alt='' /> : <Image src={BlockCat} alt='' />}
       <TextContainer>
         <Title>{title}</Title>
         <Autor>{autor}</Autor>
+        <Autor>{year}</Autor>
         <ButtonBox>
           {raiting ? <StarReiting rating={raiting} /> : <Text>ещё нет оценок</Text>}
           <Button onClick={() => {}}>Забронировать</Button>

@@ -36,5 +36,4 @@ export const Wrapper = styled.div`
 export const Main = styled.main`
   display: flex;
   justify-content: space-between;
-  min-height: calc(100vh - 65px);
 `

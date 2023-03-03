@@ -4,7 +4,6 @@ export const Wrapper = styled.div`
   width: 190px;
   height: 470px;
   background: #ffffff;
-  background: url('1.png');
   box-shadow: 0px 2px 4px rgba(191, 196, 201, 0.2), 0px 3px 4px rgba(191, 196, 201, 0.18),
     0px 1px 5px rgba(191, 196, 201, 0.24);
   border-radius: 10px;
@@ -23,7 +22,6 @@ export const fontStyles = css`
   line-height: 18px;
   display: flex;
   align-items: center;
-  letter-spacing: 0.1px;
 `
 
 export const Image = styled.img`
@@ -31,11 +29,8 @@ export const Image = styled.img`
   border-radius: 10px;
   height: 242px;
   width: 174px;
-  border-radius: 10px;
   margin-bottom: 16px;
 
-  @media screen and (max-width: 768px) {
-  }
   @media screen and (max-width: 320px) {
     height: 242px;
     width: 174px;
