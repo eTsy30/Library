@@ -10,6 +10,7 @@ import { GlobalStyle } from './GlobalStyle'
 import { BookPage } from 'pages/Book'
 import { MainPage } from 'pages/Main'
 import { OfferGreement } from 'pages/Offer-greement/OfferGreement'
+import { Registr } from 'pages/Register/Registr'
 import { TermsUser } from 'pages/Terms-of-use/Terms-of-use'
 import { store } from 'store/store'
 
@@ -29,6 +30,7 @@ root.render(
           <Route path='/books/:category/:bookId' element={<BookPage />} />
           <Route path='/books/:category/' element={<MainPage />} />
           <Route path='*' element={<Navigate to='books' replace={true} />} />
+          <Route path='/Registr' element={<Registr />} />
         </Routes>
       </HashRouter>
     </Provider>

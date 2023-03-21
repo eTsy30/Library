@@ -1,6 +1,8 @@
 import { SetStateAction, useEffect, useMemo, useState } from 'react'
 
-import { Container, Content, Main, Wrapper } from './Main-page-style'
+import { Link } from 'react-router-dom'
+
+import { Container, Content, Main, WarningMessage, Wrapper } from './Main-page-style'
 
 import { Error } from 'components/Alert-error'
 import { Footer } from 'components/Footer'
@@ -20,7 +22,7 @@ export const MainPage = () => {
   const width = useWidth()
   const [categori, setCategori] = useState<string>('all')
   const dispach = useAppDispatch()
-  const { books, isError } = useAppSelector((state) => state.getallBookReduser)
+  const { books, isError, isLoading } = useAppSelector((state) => state.getallBookReduser)
   const categories = useAppSelector((state) => state.getCategoriReduser.categories)
   const path = useAppSelector((state) => state.setCategory.categorii)
   const searshValue = useAppSelector((state) => state.setSearchValue.value)
@@ -41,12 +43,9 @@ export const MainPage = () => {
 
   const bookArr = useMemo(() => {
     const list = bookObj[categori]
-    if (searshValue.length === 0) {
+    if (true) {
       return list
     }
-    return list.filter((el: any) => {
-      return el.attributes.title.toLowerCase().includes(searshValue)
-    })
   }, [searshValue, bookObj, categori])
 
   useEffect(() => {
@@ -62,11 +61,17 @@ export const MainPage = () => {
             name='Иван'
             imgAvatar='https://avatars.mds.yandex.net/i?id=2fd47a896e5c07a593a1521c677d9d73f43c45fa-5870396-images-thumbs&n=13'
           />
+          <Link to={`/Registr`}> REGISTR</Link>
           <Main>
             {window.innerWidth >= 768 ? <NavigationMenu /> : ''}
             <Content>
               <Navigation onChange={handleChange} />
-              {books.length > 0 ? <ListofCard bookArr={bookArr} direction={direction} /> : <Spiner />}
+              {isLoading ? <Spiner /> : ''}
+              {books.length > 0 ? (
+                <ListofCard bookArr={bookArr} direction={direction} />
+              ) : (
+                <WarningMessage>По вашеиму запросу ничего не найдено</WarningMessage>
+              )}
             </Content>
           </Main>
         </Container>

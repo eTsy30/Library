@@ -57,7 +57,7 @@ const ButtonKit = styled.button<IButton>`
 `
 
 export const Button = ({ text, width, height, disabled, onClick, fontSize }: IButton) => (
-  <ButtonKit onClick={onClick} disabled={disabled} height={height} width={width} fontSize={fontSize}>
+  <ButtonKit type='submit' onClick={onClick} disabled={disabled} height={height} width={width} fontSize={fontSize}>
     {text}
   </ButtonKit>
 )

@@ -1,0 +1,1 @@
+import { Registr } from './Registr'
