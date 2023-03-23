@@ -1,0 +1,1 @@
+import { FogotPasswordForm } from './FogotPassword'

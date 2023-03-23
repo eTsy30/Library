@@ -1,13 +1,43 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
+export const Panel = styled.div`
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 20px 0px 20px 16px;
+  gap: 16px;
+  width: 528px;
+  height: 64px;
+  background: #f9f9fa;
+  border-radius: 16px 16px 0px 0px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+`
+export const TitleLabel = styled.h4`
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+  color: #727272;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+`
+
 export const Container = styled.div`
   display: flex;
+  position: relative;
   justify-content: center;
   flex-wrap: nowrap;
   flex-direction: column;
   width: 528px;
-  height: 492px;
+  height: 422px;
   background: #ffffff;
   border-radius: 16px;
   padding: 48px 56px 51px 56px;

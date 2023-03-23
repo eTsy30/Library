@@ -48,3 +48,20 @@ export const InputContainer = styled.div`
   margin-bottom: 18px;
   position: relative;
 `
+export const LabelError = styled.label`
+  display: block;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.2px;
+  color: red;
+  padding-left: 12px;
+  mix-blend-mode: normal;
+`
+
+export const InputImage = styled.div`
+  position: absolute;
+  right: 5%;
+  top: 15px;
+  z-index: 1;
+`

@@ -62,6 +62,12 @@ export const MainPage = () => {
             imgAvatar='https://avatars.mds.yandex.net/i?id=2fd47a896e5c07a593a1521c677d9d73f43c45fa-5870396-images-thumbs&n=13'
           />
           <Link to={`/Registr`}> REGISTR</Link>
+          <br />
+          <Link to={`/SingIn`}> SingIn</Link>
+          <br />
+          <Link to={`/FogotPassword`}> FogotPassword</Link> <br />
+          <Link to={`/RevertPassword`}> RevertPassword</Link>
+          RevertPassword
           <Main>
             {window.innerWidth >= 768 ? <NavigationMenu /> : ''}
             <Content>

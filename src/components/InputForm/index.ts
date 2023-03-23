@@ -1,1 +1,0 @@
-import { InputForm } from './InputForm'
