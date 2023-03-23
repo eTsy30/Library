@@ -1,7 +1,6 @@
 import React, { ReactNode, useState } from 'react'
 
 import { Controller, useForm } from 'react-hook-form'
-import MaskedInput, { Props, ReactInputMask } from 'react-input-mask'
 import InputMask from 'react-input-mask'
 
 import { MainContainerForm, SubTitle } from 'components/AuthForm/AuthForm-style'
@@ -22,14 +21,11 @@ export const UserRegistrForm = () => {
   const {
     register,
     reset,
-
     formState: { errors },
     handleSubmit,
     control,
-  } = useForm<Profile>({ mode: 'all' })
+  } = useForm<Profile>({ mode: 'onBlur' })
   const onSubmit = (data: any) => {
-    console.log('hello')
-
     if (formStep === 1) {
       setFormStep(2)
     }
@@ -100,16 +96,30 @@ export const UserRegistrForm = () => {
             <Controller
               name='phone'
               control={control}
-              render={(props: any) => (
+              rules={{
+                pattern: {
+                  value: /^(\+375)([(]?)(29|25|44|33)([)]?)(\d{3})([-]?)(\d{2})([-]?)(\d{2})$/,
+                  message: 'Введите корректрый номер',
+                },
+              }}
+              render={({ fieldState: { error }, ...props }) => (
                 <InputMask
                   mask='+375(99)999-99-99'
-                  value={props.field.value}
+                  value={props.field.value ? props.field.value : ''}
                   disabled={false}
                   onChange={(value): void => {
+                    console.log(error)
+
                     props.field.onChange(value)
                   }}
                 >
-                  <InputBase disabled={false} name='phone' type='tel' placeholder='+375(00)000-00-00' />
+                  <InputBase
+                    disabled={false}
+                    name='phone'
+                    error={error?.message}
+                    type='tel'
+                    placeholder='+375(00)000-00-00'
+                  />
                 </InputMask>
               )}
             />
@@ -124,7 +134,7 @@ export const UserRegistrForm = () => {
               })}
               placeholder={'E-mail'}
               error={errors.email?.message}
-              type='text'
+              type='email'
             />
           </section>
         )}

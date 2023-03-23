@@ -1,24 +1,4 @@
-import { Children, useState } from 'react'
-import React from 'react'
-import { useForm } from 'react-hook-form'
-
-import { Link } from 'react-router-dom'
-
-import {
-  Container,
-  Title,
-  Linka,
-  Label,
-  FooterContainer,
-  HeaderContainer,
-  MainContainerForm,
-  FooterWrapper,
-} from './AuthForm-style'
-
-import { Button } from 'components/Button'
-import { InputBase } from 'components/Inputs/InputBase/InputBase'
-import { Input } from 'components/Inputs/InputBase/InputBase-style'
-import { InputPassword } from 'components/Inputs/InputPassword/InputPassword'
+import { Container, Title, Linka, Label, FooterContainer, HeaderContainer, FooterWrapper } from './AuthForm-style'
 
 interface IAuth {
   title: string

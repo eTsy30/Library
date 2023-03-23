@@ -1,4 +1,3 @@
-import React from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Linka, MainContainerForm } from './SingInForm-style'
@@ -19,6 +18,7 @@ export const SingInForm = () => {
   } = useForm<Profile>({ mode: 'all' })
   const onSubmit = (data: any) => {
     console.log(data)
+    reset()
   }
   return (
     <MainContainerForm onSubmit={handleSubmit(onSubmit)}>
