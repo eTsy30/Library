@@ -7,6 +7,7 @@ import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
 
 import { GlobalStyle } from './GlobalStyle'
 
+import { SeeSoon } from 'components/SeeSoon/SeeSoon'
 import { BookPage } from 'pages/Book'
 import { FogotPassword } from 'pages/FogotPassword/FogotPassword'
 import { MainPage } from 'pages/Main'
@@ -37,7 +38,7 @@ root.render(
           <Route path='/SingIn' element={<SingIn />} />
           <Route path='/FogotPassword' element={<FogotPassword />} />
           <Route path='/RevertPassword' element={<RecoverPassword />} />
-          FogotPasswordForm
+          <Route path='/SeeSoon' element={<SeeSoon />} />
         </Routes>
       </HashRouter>
     </Provider>

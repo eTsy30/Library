@@ -4,13 +4,16 @@ import { Avatar, Burger, Close, Container, ContainerUser, Image, NameUser, Title
 
 import Logo from 'assets/img/LogoP.png'
 
+import { setPopUpMenyActive } from 'redux/activePopUpMenu/activePopUpMenu'
 import { setBurgerActive } from 'redux/burger-menu/burger-active'
 import { useAppDispatch, useAppSelector } from 'store/hook'
 import { IUser } from 'types/user'
 
-export const Header = ({ name, imgAvatar }: IUser) => {
+export const Header = ({ imgAvatar }: IUser) => {
   const dispatch = useAppDispatch()
   const burgerActite = useAppSelector((state) => state.isActiveBurger.value)
+  const firstName = localStorage.getItem('firstName')
+  const popUp = useAppSelector((state) => state.isActivePopUpMenuReduser.isActiveBurger)
 
   return (
     <Wrapper>
@@ -24,8 +27,8 @@ export const Header = ({ name, imgAvatar }: IUser) => {
       </Link>
       <Container>
         <Title>Библиотека</Title>
-        <ContainerUser>
-          <NameUser> Привет, {name}! </NameUser>
+        <ContainerUser onClick={() => dispatch(setPopUpMenyActive(!popUp))}>
+          <NameUser> Привет, {firstName?.replaceAll(/["]/g, '')}! </NameUser>
           <Avatar src={imgAvatar} alt='no' />
         </ContainerUser>
       </Container>

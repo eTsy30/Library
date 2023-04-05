@@ -1,22 +1,24 @@
-import React from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Button } from 'components/Button'
 import { MainContainerForm } from 'components/Forms/SingInForm/SingInForm-style'
 
 import { InputBase } from 'components/Inputs/InputBase/InputBase'
+import { forgotPassword } from 'redux/forgot-password/forgotPassword'
+import { useAppDispatch } from 'store/hook'
 
 type Profile = {
   email: string
 }
 export const FogotPasswordForm = () => {
+  const dispach = useAppDispatch()
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm<Profile>({ mode: 'all' })
   const onSubmit = (data: any) => {
-    console.log(data)
+    dispach(forgotPassword(data))
   }
   return (
     <MainContainerForm onSubmit={handleSubmit(onSubmit)}>

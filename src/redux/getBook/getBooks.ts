@@ -37,7 +37,7 @@ const query = qs.stringify(
 
 export const getAllBooks = createAsyncThunk('get/getAllBooks', async (path, { rejectWithValue }) => {
   try {
-    const response = await axios.get('http://localhost:1337/api/' + `books?${query}`, {
+    const response = await axios.get(process.env.REACT_APP_API_URL + `books?${query}`, {
       headers: {
         Authorization: 'berer' + process.env.REACT_APP_API_TOKEN,
       },
@@ -47,7 +47,6 @@ export const getAllBooks = createAsyncThunk('get/getAllBooks', async (path, { re
       throw new Error('Errore!')
     }
     const { data } = response.data
-    console.log(data, '+++++data*****')
 
     return data.sort((a: any, b: any) => {
       return a?.attributes?.rating - b?.attributes?.rating
@@ -77,7 +76,6 @@ export const getFindBooks = createAsyncThunk('get/getFindBooks', async (dataPara
     }
 
     const { data } = response.data
-    console.log(data, '+++++data*****')
 
     return data.sort((a: any, b: any) => {
       return a?.attributes?.rating - b?.attributes?.rating

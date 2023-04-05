@@ -1,31 +1,35 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 
+import { useNavigate } from 'react-router-dom'
+
 import { Button } from 'components/Button'
 import { MainContainerForm } from 'components/Forms/SingInForm/SingInForm-style'
-
-import { InputBase } from 'components/Inputs/InputBase/InputBase'
 import { InputPassword } from 'components/Inputs/InputPassword/InputPassword'
+import { revertPassword } from 'redux/revertPassword/revertPassword'
+import { useAppDispatch, useAppSelector } from 'store/hook'
 type Profile = {
   newPassword: string
   newPasswordRepeat: string
 }
 export const RecoverPasswordForm = () => {
+  const currentUrl = window.location.hash.slice(window.location.hash.indexOf('=') + 1, window.location.hash.length)
+  const dispach = useAppDispatch()
   const {
     register,
     reset,
-    watch,
     formState: { errors },
     handleSubmit,
   } = useForm<Profile>({ mode: 'onBlur' })
   const onSubmit = (data: any) => {
-    console.log(data)
     const { newPassword, newPasswordRepeat } = data
     if (newPassword === newPasswordRepeat) {
-      console.log(data)
-    } else {
+      const data = { password: newPassword, passwordConfirmation: newPasswordRepeat, code: currentUrl }
+      dispach(revertPassword(data))
+      reset()
     }
   }
+
   return (
     <MainContainerForm onSubmit={handleSubmit(onSubmit)}>
       <InputPassword
@@ -39,20 +43,19 @@ export const RecoverPasswordForm = () => {
         placeholder={'Новый пароль'}
         label={'Пароль не менее 8 символов, с заглавной буквой и цифрой'}
         error={errors.newPassword?.message}
-      />{' '}
-      {/* <InputPassword
+      />
+      <InputPassword
         {...register('newPasswordRepeat', {
           required: true,
-          validate: (val: string) => {
-            if (watch('password') != val) {
-              return 'Your passwords do no match'
-            }
+          pattern: {
+            value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+            message: 'Пароль не менее 8 символов, с заглавной буквой и цифрой',
           },
         })}
-        placeholder={'Повторите пароль'}
+        placeholder={'Новый пароль'}
         label={'Пароль не менее 8 символов, с заглавной буквой и цифрой'}
-        error={errors.newPasswordRepeat?.message}
-      /> */}
+        error={errors.newPassword?.message}
+      />
       <Button fontSize='16px' width={'fullWidth'} text='Вход' />
     </MainContainerForm>
   )

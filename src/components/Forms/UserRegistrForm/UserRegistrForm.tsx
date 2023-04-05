@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react'
+import { useState } from 'react'
 
 import { Controller, useForm } from 'react-hook-form'
 import InputMask from 'react-input-mask'
@@ -7,7 +7,8 @@ import { MainContainerForm, SubTitle } from 'components/AuthForm/AuthForm-style'
 import { Button } from 'components/Button'
 import { InputBase } from 'components/Inputs/InputBase/InputBase'
 import { InputPassword } from 'components/Inputs/InputPassword/InputPassword'
-
+import { registrUser } from 'redux/registrateUser/registrateUser'
+import { useAppDispatch } from 'store/hook'
 type Profile = {
   login: string
   password: string
@@ -17,7 +18,7 @@ type Profile = {
   email: string
 }
 export const UserRegistrForm = () => {
-  const [formStep, setFormStep] = useState(3)
+  const [formStep, setFormStep] = useState(1)
   const {
     register,
     reset,
@@ -33,10 +34,11 @@ export const UserRegistrForm = () => {
       setFormStep(3)
     }
     if (formStep === 3) {
-      console.log(data)
+      dispach(registrUser(data))
       reset()
     }
   }
+  const dispach = useAppDispatch()
 
   return (
     <>
@@ -97,6 +99,7 @@ export const UserRegistrForm = () => {
               name='phone'
               control={control}
               rules={{
+                required: 'Вы забыли ввести номер',
                 pattern: {
                   value: /^(\+375)([(]?)(29|25|44|33)([)]?)(\d{3})([-]?)(\d{2})([-]?)(\d{2})$/,
                   message: 'Введите корректрый номер',
@@ -108,8 +111,6 @@ export const UserRegistrForm = () => {
                   value={props.field.value ? props.field.value : ''}
                   disabled={false}
                   onChange={(value): void => {
-                    console.log(error)
-
                     props.field.onChange(value)
                   }}
                 >

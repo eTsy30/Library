@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react'
-
 import { Container, Main, Wrapper } from './Term-of-use-style'
 
 import { Footer } from 'components/Footer'
@@ -15,10 +13,7 @@ export const TermsUser = () => {
   return (
     <Container>
       <Wrapper>
-        <Header
-          name='Иван'
-          imgAvatar='https://avatars.mds.yandex.net/i?id=2fd47a896e5c07a593a1521c677d9d73f43c45fa-5870396-images-thumbs&n=13'
-        />
+        <Header imgAvatar='https://avatars.mds.yandex.net/i?id=2fd47a896e5c07a593a1521c677d9d73f43c45fa-5870396-images-thumbs&n=13' />
         <Main>
           <NavigationMenu />
           <Terms title='Правила пользования' />

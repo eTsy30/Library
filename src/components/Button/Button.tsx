@@ -13,18 +13,6 @@ const getwidthSize = (width: string) => {
       return '100%'
   }
 }
-const getFontSize = (width: string) => {
-  switch (width) {
-    case 'small':
-      return '174px'
-    case 'medium':
-      return '306px'
-    case 'large':
-      return '350px'
-    default:
-      return '100%'
-  }
-}
 
 interface IButton {
   height?: 'normal' | 'big' | undefined

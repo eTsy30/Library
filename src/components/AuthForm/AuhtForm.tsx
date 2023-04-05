@@ -3,12 +3,13 @@ import { Container, Title, Linka, Label, FooterContainer, HeaderContainer, Foote
 interface IAuth {
   title: string
   subTitle?: string
-  label: string
-  linkText: string
-  children: JSX.Element
+  label?: string
+  linkText?: string
+  children?: JSX.Element
+  linkTo?: string
 }
 
-export const AuhtForm = ({ title, label, linkText, children }: IAuth) => {
+export const AuhtForm = ({ title, label, linkText, children, linkTo }: IAuth) => {
   return (
     <Container>
       <HeaderContainer>
@@ -18,7 +19,7 @@ export const AuhtForm = ({ title, label, linkText, children }: IAuth) => {
       <FooterContainer>
         <FooterWrapper>
           <Label htmlFor='name'>{label}</Label>
-          <Linka to={''}>{linkText}</Linka>
+          <Linka to={linkTo ? linkTo : ''}>{linkText}</Linka>
         </FooterWrapper>
       </FooterContainer>
     </Container>

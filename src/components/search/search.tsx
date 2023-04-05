@@ -20,7 +20,6 @@ export const SearchComponent = ({ onChange, isActiveSearch }: any) => {
   const width = useWidth()
   function SearchChange(e: ChangeEvent<HTMLInputElement>): void {
     setInputChang(e.target.value.toLowerCase())
-    console.log(category, 'pathpathpathpathpathpath')
 
     const data = { category: category, find: e.target.value.toLowerCase() }
     dispach(getFindBooks(data))

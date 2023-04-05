@@ -14,7 +14,7 @@ const initialState = {
 }
 export const getCategorii = createAsyncThunk('get/getCategorii', async (path, { rejectWithValue }) => {
   try {
-    const response = await axios.get('http://localhost:1337/api/' + 'categories', {
+    const response = await axios.get(process.env.REACT_APP_API_URL + 'categories', {
       headers: {
         Authorization: 'berer' + process.env.REACT_APP_API_TOKEN,
       },
@@ -26,7 +26,6 @@ export const getCategorii = createAsyncThunk('get/getCategorii', async (path, { 
 
     return data
   } catch (error) {
-    console.log(error)
     return rejectWithValue(error)
   }
 })

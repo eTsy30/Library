@@ -3,11 +3,6 @@ import axios from 'axios'
 
 import { ICard } from 'types/card'
 
-interface IBooksState {
-  books: ICard
-  isLoading: boolean
-  isError: boolean
-}
 const initialState = {
   book: null,
   isLoading: false,
@@ -42,7 +37,6 @@ export const getOneBook = createAsyncThunk('get/getOneBook', async (id: string, 
       throw new Error('Errore!')
     }
     const { data } = response.data
-    console.log(data)
 
     return data
   } catch (error) {
@@ -60,7 +54,7 @@ const getOneBookReduser = createSlice({
         state.isError = false
       })
       .addCase(getOneBook.fulfilled, (state: any, action: PayloadAction<ICard>) => {
-        state.book = action.payload
+        state.books = action.payload
         state.isLoading = false
         state.isError = false
       })
