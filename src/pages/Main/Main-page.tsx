@@ -1,6 +1,9 @@
+import axios from 'axios'
 import { SetStateAction, useEffect, useMemo, useState } from 'react'
 
-import { Container, Content, Main, Wrapper } from './Main-page-style'
+import { Link, useNavigate } from 'react-router-dom'
+
+import { Container, Content, Main, WarningMessage, Wrapper } from './Main-page-style'
 
 import { Error } from 'components/Alert-error'
 import { Footer } from 'components/Footer'
@@ -10,7 +13,10 @@ import { Spiner } from 'components/Loader-spiner'
 import { ModalMenu } from 'components/Modal-menu'
 import { Navigation } from 'components/Navigation'
 import { NavigationMenu } from 'components/Navigation-menu'
+import { PopUpMenu } from 'components/popUpMenu/PopUpMenu'
 import { useWidth } from 'hooks/use-width'
+import { setPopUpMenyActive } from 'redux/activePopUpMenu/activePopUpMenu'
+import { setforgotPassword } from 'redux/forgot-password/forgotPassword'
 import { getAllBooks } from 'redux/getBook/getBooks'
 import { useAppDispatch, useAppSelector } from 'store/hook'
 
@@ -20,11 +26,14 @@ export const MainPage = () => {
   const width = useWidth()
   const [categori, setCategori] = useState<string>('all')
   const dispach = useAppDispatch()
-  const { books, isError } = useAppSelector((state) => state.getallBookReduser)
+  const { books, isError, isLoading } = useAppSelector((state) => state.getallBookReduser)
   const categories = useAppSelector((state) => state.getCategoriReduser.categories)
   const path = useAppSelector((state) => state.setCategory.categorii)
   const searshValue = useAppSelector((state) => state.setSearchValue.value)
-
+  const jwt = useAppSelector((state) => state.singInReduser.token)
+  const login = useAppSelector((state: any) => state.singInReduser.user)
+  const userSingIn = localStorage.getItem('userSingIn') ? true : false
+  const popUp = useAppSelector((state) => state.isActivePopUpMenuReduser.isActiveBurger)
   useEffect(() => (path === '' ? setCategori('all') : setCategori(path)), [path])
 
   function getFilteredBooks(books: any, id: any) {
@@ -41,34 +50,49 @@ export const MainPage = () => {
 
   const bookArr = useMemo(() => {
     const list = bookObj[categori]
-    if (searshValue.length === 0) {
+    if (true) {
       return list
     }
-    return list.filter((el: any) => {
-      return el.attributes.title.toLowerCase().includes(searshValue)
-    })
   }, [searshValue, bookObj, categori])
-
+  const navigate = useNavigate()
   useEffect(() => {
     dispach(getAllBooks())
   }, [dispach])
 
+  if (!userSingIn) {
+    navigate('/SingIn')
+  }
   return (
     <>
       <Wrapper $isScroll={books ? 'scroll' : 'hidden'}>
         <Container>
           {isError ? <Error /> : ''}
-          <Header
-            name='Иван'
-            imgAvatar='https://avatars.mds.yandex.net/i?id=2fd47a896e5c07a593a1521c677d9d73f43c45fa-5870396-images-thumbs&n=13'
-          />
+          <Header imgAvatar='https://avatars.mds.yandex.net/i?id=2fd47a896e5c07a593a1521c677d9d73f43c45fa-5870396-images-thumbs&n=13' />
+          {popUp && <PopUpMenu />}
+          <Link to={`/Registr`}> REGISTR</Link>
+          <br />
+          <Link to={`/SingIn`}> SingIn</Link>
+          <br />
+          <Link to={`/FogotPassword`} onClick={() => dispach(setforgotPassword())}>
+            FogotPassword
+          </Link>{' '}
+          <br />
+          <button onClick={() => dispach(setPopUpMenyActive(!popUp))}>popUpActive</button>
+          <Link to={`/RevertPassword`}> RevertPassword</Link>
+          <h3>{popUp}</h3>
           <Main>
             {window.innerWidth >= 768 ? <NavigationMenu /> : ''}
             <Content>
               <Navigation onChange={handleChange} />
-              {books.length > 0 ? <ListofCard bookArr={bookArr} direction={direction} /> : <Spiner />}
+              {isLoading ? <Spiner /> : ''}
+              {books.length > 0 ? (
+                <ListofCard bookArr={bookArr} direction={direction} />
+              ) : (
+                <WarningMessage>По вашеиму запросу ничего не найдено</WarningMessage>
+              )}
             </Content>
           </Main>
+          )
         </Container>
         <Footer />
       </Wrapper>

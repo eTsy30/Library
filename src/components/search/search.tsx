@@ -1,22 +1,28 @@
 import { ChangeEvent, MouseEventHandler, useState } from 'react'
 
+import { useParams } from 'react-router-dom'
+
 import { Div, SearchInput } from './Search-style'
 
 import { ReactComponent as Close } from 'assets/icon/Close.svg'
 import { ReactComponent as Search } from 'assets/icon/Search.svg'
 
 import { useWidth } from 'hooks/use-width'
+import { getFindBooks } from 'redux/getBook/getBooks'
 import { setSearchValue } from 'redux/setSearch/setSearch'
 import { useAppDispatch } from 'store/hook'
 
 export const SearchComponent = ({ onChange, isActiveSearch }: any) => {
   const dispach = useAppDispatch()
+  const { category } = useParams()
   const [inputChange, setInputChang] = useState('')
   const [isActive, setActiveSearch] = useState(isActiveSearch)
   const width = useWidth()
   function SearchChange(e: ChangeEvent<HTMLInputElement>): void {
     setInputChang(e.target.value.toLowerCase())
-    dispach(setSearchValue(e.target.value.toLowerCase()))
+
+    const data = { category: category, find: e.target.value.toLowerCase() }
+    dispach(getFindBooks(data))
   }
 
   const activeChange: MouseEventHandler = () => {

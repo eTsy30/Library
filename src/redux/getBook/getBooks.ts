@@ -8,14 +8,36 @@ interface IBooksState {
   isLoading: boolean
   isError: boolean
 }
+
+interface IBookFind {
+  category: string | undefined
+  find: string
+}
 const initialState = {
   books: [],
   isLoading: false,
   isError: false,
 }
+const qs = require('qs')
+const query = qs.stringify(
+  {
+    populate: {
+      image: {
+        fields: ['url', 'name'],
+      },
+      categories: {
+        fields: ['name', 'path', 'id'],
+      },
+    },
+  },
+  {
+    encodeValuesOnly: true, // prettify URL
+  },
+)
+
 export const getAllBooks = createAsyncThunk('get/getAllBooks', async (path, { rejectWithValue }) => {
   try {
-    const response = await axios.get('http://localhost:1337/api/' + 'books?populate=*', {
+    const response = await axios.get(process.env.REACT_APP_API_URL + `books?${query}`, {
       headers: {
         Authorization: 'berer' + process.env.REACT_APP_API_TOKEN,
       },
@@ -24,6 +46,35 @@ export const getAllBooks = createAsyncThunk('get/getAllBooks', async (path, { re
     if (response.statusText !== 'OK') {
       throw new Error('Errore!')
     }
+    const { data } = response.data
+
+    return data.sort((a: any, b: any) => {
+      return a?.attributes?.rating - b?.attributes?.rating
+    })
+  } catch (error) {
+    return rejectWithValue(error)
+  }
+})
+
+export const getFindBooks = createAsyncThunk('get/getFindBooks', async (dataParam: any, { rejectWithValue }) => {
+  try {
+    const params = dataParam.category ? `[filters][categories][path][$eq]=${dataParam.category}` : null
+    const response = await axios.get(
+      `http://localhost:1337/api/books?populate[image][fields][0]=url,name&populate[categories][fields][0]=name,path,id&[filters][title][$contains]=${dataParam.find}&${params}`,
+      {
+        headers: {
+          Authorization: 'berer' + process.env.REACT_APP_API_TOKEN,
+        },
+      },
+    )
+
+    if (response.statusText !== 'OK') {
+      throw new Error('Errore!')
+    }
+    if (response.statusText !== 'OK') {
+      throw new Error('Errore!')
+    }
+
     const { data } = response.data
 
     return data.sort((a: any, b: any) => {
@@ -49,6 +100,19 @@ const getallBookReduser = createSlice({
         state.isError = false
       })
       .addCase(getAllBooks.rejected, (state) => {
+        state.isLoading = false
+        state.isError = false
+      })
+      .addCase(getFindBooks.pending, (state) => {
+        state.isLoading = true
+        state.isError = false
+      })
+      .addCase(getFindBooks.fulfilled, (state: any, action: PayloadAction<ICard>) => {
+        state.books = action.payload
+        state.isLoading = false
+        state.isError = false
+      })
+      .addCase(getFindBooks.rejected, (state) => {
         state.isLoading = false
         state.isError = true
       })

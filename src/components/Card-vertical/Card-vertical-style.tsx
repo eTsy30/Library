@@ -11,6 +11,7 @@ export const Wrapper = styled.div`
   align-items: flex-start;
   flex-direction: column;
   padding: 8px;
+  margin: 5px;
   justify-content: space-between;
   @media screen and (max-width: 320px) {
     width: 288px;

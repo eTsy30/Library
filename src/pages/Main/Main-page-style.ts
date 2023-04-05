@@ -4,15 +4,17 @@ import { IScroll } from 'types/isActive'
 
 export const Container = styled.section`
   width: 100%;
+
   min-height: calc(100vh - 100px);
 `
 export const Wrapper = styled.div<IScroll>`
   width: 100%;
+
   max-width: 1110px;
   margin: 0 auto;
   min-height: calc(100vh - 300px);
   position: relative;
-  overflow: ${(props) => props.$isScroll};
+  /* overflow: ${(props) => props.$isScroll}; */
   @media screen and (max-width: 768px) {
     & {
       max-width: 83%;
@@ -48,7 +50,6 @@ export const Content = styled.section`
 export const ListCard = styled.div`
   display: flex;
   justify-content: center;
-  gap: 2%;
   flex-wrap: wrap;
 `
 export const WarningMessage = styled.h2`

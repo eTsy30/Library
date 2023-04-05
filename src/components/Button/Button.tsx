@@ -13,18 +13,6 @@ const getwidthSize = (width: string) => {
       return '100%'
   }
 }
-const getFontSize = (width: string) => {
-  switch (width) {
-    case 'small':
-      return '174px'
-    case 'medium':
-      return '306px'
-    case 'large':
-      return '350px'
-    default:
-      return '100%'
-  }
-}
 
 interface IButton {
   height?: 'normal' | 'big' | undefined
@@ -57,7 +45,7 @@ const ButtonKit = styled.button<IButton>`
 `
 
 export const Button = ({ text, width, height, disabled, onClick, fontSize }: IButton) => (
-  <ButtonKit onClick={onClick} disabled={disabled} height={height} width={width} fontSize={fontSize}>
+  <ButtonKit type='submit' onClick={onClick} disabled={disabled} height={height} width={width} fontSize={fontSize}>
     {text}
   </ButtonKit>
 )

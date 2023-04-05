@@ -12,6 +12,7 @@ export const Wrapper = styled.div`
   align-items: flex-start;
   flex-direction: column;
   padding: 26px 16px;
+  margin: 5px;
   @media screen and (max-width: 768px) {
     width: 640px;
     font-weight: 700;
@@ -89,6 +90,11 @@ export const Title = styled.h4`
   ${fontStyles}
   color: #363636;
   margin-bottom: 8px;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 70px;
   @media screen and (max-width: 768px) {
     text-overflow: ellipsis;
   }
@@ -98,9 +104,7 @@ export const Title = styled.h4`
     text-overflow: ellipsis;
     height: 18px;
     margin: 0 auto;
-    font-size: $font-size;
-    line-height: $line-height;
-    -webkit-line-clamp: $lines-to-show;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;

@@ -1,0 +1,1 @@
+import { RecoverPasswordForm } from './RecoverPasswordForm'
