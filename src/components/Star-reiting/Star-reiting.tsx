@@ -10,10 +10,12 @@ const Wrapper = styled.div`
 `
 const STARS = [1, 2, 3, 4, 5]
 
-export const StarReiting = ({ rating }: Irating) => {
+export const StarReiting = ({ rating, getRaiting }: Irating) => {
   const [ratingStar, setRating] = useState(rating === undefined ? 0 : rating - 1)
   const [hoverRating, setHoverRating] = useState(0)
-
+  const handlerChange = (ratingStar: number) => {
+    getRaiting(ratingStar + 1)
+  }
   return (
     <Wrapper>
       {STARS.map((star, i) => (
@@ -25,6 +27,7 @@ export const StarReiting = ({ rating }: Irating) => {
             setHoverRating(0)
           }}
           onClick={() => {
+            handlerChange(hoverRating)
             setRating(i)
           }}
         />

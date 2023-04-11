@@ -49,7 +49,7 @@ export const UserRegistrForm = () => {
             <InputBase
               {...register('login', {
                 required: true,
-                minLength: { value: 2, message: 'Логин доден быть больше 2 символов' },
+                minLength: { value: 5, message: 'Логин доден быть больше 2 символов' },
               })}
               placeholder='Придумайте логин для входа'
               label={'Используйте для логина латинский алфавит и цифры'}

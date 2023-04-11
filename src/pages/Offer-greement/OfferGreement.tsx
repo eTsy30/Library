@@ -1,7 +1,7 @@
 import { Container, Main, Wrapper } from './OfferGreement-style'
 
-import { Footer } from 'components/Footer'
-import { Header } from 'components/Header/Header'
+import { Footer } from 'components/Footer/Footer'
+import { Header } from 'components/Header'
 import { ModalMenu } from 'components/Modal-menu'
 import { NavigationMenu } from 'components/Navigation-menu/Navigation-menu'
 import { Terms } from 'components/Terms/Terms'

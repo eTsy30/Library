@@ -14,7 +14,7 @@ export const Wrapper = styled.div<IScroll>`
   margin: 0 auto;
   min-height: calc(100vh - 300px);
   position: relative;
-  /* overflow: ${(props) => props.$isScroll}; */
+  overflow: ${(props) => props.$isScroll};
   @media screen and (max-width: 768px) {
     & {
       max-width: 83%;

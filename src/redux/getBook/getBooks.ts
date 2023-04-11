@@ -58,9 +58,9 @@ export const getAllBooks = createAsyncThunk('get/getAllBooks', async (path, { re
 
 export const getFindBooks = createAsyncThunk('get/getFindBooks', async (dataParam: any, { rejectWithValue }) => {
   try {
-    const params = dataParam.category ? `[filters][categories][path][$eq]=${dataParam.category}` : null
+    // const params = dataParam.category ? `[filters][categories][path][$eq]=${dataParam.category}` : null
     const response = await axios.get(
-      `http://localhost:1337/api/books?populate[image][fields][0]=url,name&populate[categories][fields][0]=name,path,id&[filters][title][$contains]=${dataParam.find}&${params}`,
+      `http://localhost:1337/api/books?populate[image][fields][0]=url,name&populate[categories][fields][0]=name,path,id&[filters][title][$contains]=${dataParam.find}`,
       {
         headers: {
           Authorization: 'berer' + process.env.REACT_APP_API_TOKEN,

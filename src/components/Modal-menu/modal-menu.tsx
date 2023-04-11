@@ -8,14 +8,12 @@ import { UlLink } from 'components/Navigation-menu/Navigation-meny-style'
 
 import { setBurgerActive } from 'redux/burger-menu/burger-active'
 import { useAppDispatch, useAppSelector } from 'store/hook'
+import { BodyScroll } from 'Utils/IsScrollBody'
 
 export const ModalMenu = () => {
   const menuActite = useAppSelector((state) => state.isActiveBurger.value)
   const dispatch = useAppDispatch()
 
-  useEffect(() => {
-    document.body.style.overflow = menuActite ? 'scroll' : 'hidden'
-  }, [menuActite])
   if (menuActite) return null
 
   return (

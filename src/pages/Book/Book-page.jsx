@@ -1,8 +1,5 @@
-import axios from 'axios'
 import { useMemo, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-
-import { env } from 'process'
 
 import {
   Container,
@@ -18,7 +15,7 @@ import { Error } from 'components/Alert-error'
 import { BookInformation } from 'components/Book-information/Book-information'
 import { BookPresent } from 'components/Book-present/Book-present'
 import { BookReviews } from 'components/Book-reviews/Book-reviews'
-import { Footer } from 'components/Footer'
+import { Footer } from 'components/Footer/Footer'
 import { Header } from 'components/Header'
 import { Spiner } from 'components/Loader-spiner'
 import { PathComponent } from 'components/Path-component/Path-component'
@@ -65,7 +62,7 @@ export const BookPage = () => {
                   </RaytingContainer>
                 </RaytingWrapper>
                 <BookInformation information={book?.attributes} />
-                <BookReviews reviews={bookInformation.reviews} />
+                <BookReviews bookID={bookId} />
               </Content>
             </div>
           )

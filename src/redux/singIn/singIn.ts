@@ -25,11 +25,14 @@ export const singInUser = createAsyncThunk('post/singInUser', async (userData: I
         },
       },
     )
+
     if (response.statusText !== 'OK') {
       throw new Error('Errore!')
     } else {
       localStorage.setItem('userSingIn', JSON.stringify(response.data))
       localStorage.setItem('firstName', JSON.stringify(response.data.user.firstName))
+      localStorage.setItem('idUser', JSON.stringify(response.data.user.id))
+
       return response.data
     }
   } catch (error) {

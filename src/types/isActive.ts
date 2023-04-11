@@ -1,5 +1,5 @@
 export interface IActive {
-  $isActive: boolean
+  $isActive?: boolean
 }
 export interface ISearchButton {
   isActiveSearch: boolean
