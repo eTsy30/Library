@@ -9,8 +9,11 @@ import setCloseError from 'redux/getBook/getBooks'
 import setReverseBook from 'redux/getBook/getBooks'
 import getCategoriReduser from 'redux/getCategorii/getCategorii'
 import setCategory from 'redux/getCategorii/getCategorii'
+import getCommentsReduser from 'redux/getComments/getComments'
 import getOneBookReduser from 'redux/getOneBook/getOneBook'
 import isActiveBookMenu from 'redux/IsActiveBookMenu/IsActiveBookMenu'
+import IsActiveModalMenuReduser from 'redux/IsActiveModalMenu/IsActiveModalMenu'
+import commetnPostReduser from 'redux/postComments/postComments'
 import registrUserReduser from 'redux/registrateUser/registrateUser'
 import revertPasswordReduser from 'redux/revertPassword/revertPassword'
 import setSearchValue from 'redux/setSearch/setSearch'
@@ -33,6 +36,9 @@ export const store = configureStore({
     forgotPasswordReduser,
     revertPasswordReduser,
     isActivePopUpMenuReduser,
+    IsActiveModalMenuReduser,
+    getCommentsReduser,
+    commetnPostReduser,
   },
 })
 export type RootState = ReturnType<typeof store.getState>

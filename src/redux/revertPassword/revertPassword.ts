@@ -10,7 +10,6 @@ export const revertPassword = createAsyncThunk(
   'post/revertPassword',
   async ({ code, password, passwordConfirmation }: any, { rejectWithValue }) => {
     try {
-      console.log(code, password, passwordConfirmation, 'START')
       const response = await axios.post(
         process.env.REACT_APP_API_URL + `auth/reset-password`,
         {

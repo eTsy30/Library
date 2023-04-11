@@ -17,7 +17,7 @@ const getwidthSize = (width: string) => {
 interface IButton {
   height?: 'normal' | 'big' | undefined
   text?: string
-  fontSize: string
+  fontSize?: string
   width: 'small' | 'medium' | 'large' | 'fullWidth'
   disabled?: boolean
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void | undefined

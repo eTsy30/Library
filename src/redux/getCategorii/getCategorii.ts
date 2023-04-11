@@ -19,6 +19,7 @@ export const getCategorii = createAsyncThunk('get/getCategorii', async (path, { 
         Authorization: 'berer' + process.env.REACT_APP_API_TOKEN,
       },
     })
+
     if (response.statusText !== 'OK') {
       throw new Error('Errore!')
     }

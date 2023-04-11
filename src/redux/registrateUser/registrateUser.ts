@@ -38,7 +38,6 @@ export const registrUser = createAsyncThunk(
       return 'good'
     } catch (error) {
       if (`${(error as AxiosError)?.response?.status}` === '400') {
-        console.log(error, 'error')
         return rejectWithValue('400')
       }
       return rejectWithValue('bad')

@@ -7,7 +7,7 @@ import { ReactComponent as BurgerIcon } from 'assets/icon/Burger.svg'
 import { ReactComponent as Search } from 'assets/icon/Search.svg'
 import { ReactComponent as TableIcon } from 'assets/icon/Table.svg'
 
-import { SearchComponent } from 'components/Search/Search'
+import { SearchComponent } from 'components/search/search'
 import { useWidth } from 'hooks/use-width'
 import { setReverseBook } from 'redux/getBook/getBooks'
 import { useAppDispatch } from 'store/hook'
@@ -32,12 +32,11 @@ export const Navigation = ({ onChange }: any) => {
       <LeftSide data-test-id='input-search'>
         {width <= 320 && isActiveSearch ? (
           <ImgSearch
-            data-test-id='button-search-open'
             onClick={() => {
               setActiveSearch(!isActiveSearch)
             }}
           >
-            <Search data-test-id='button-search-open' />
+            <Search />
           </ImgSearch>
         ) : (
           <SearchComponent data-test-id='input-search' onChange={activeChange} isActiveSearch={isActiveSearch} />
@@ -58,7 +57,7 @@ export const Navigation = ({ onChange }: any) => {
       </LeftSide>
       {isActiveSearch ? (
         <RightSide>
-          <ButtonTablet $isActive={isActiveButton} data-test-id='button-menu-view-window' onClick={handleChange}>
+          <ButtonTablet $isActive={isActiveButton} onClick={handleChange}>
             <TableIcon />
           </ButtonTablet>
           <ButtonLinar $isActive={isActiveButton} data-test-id='button-menu-view-list' onClick={handleChange}>

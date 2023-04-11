@@ -1,3 +1,5 @@
 export interface Irating {
-  rating: number | undefined
+  rating: number
+  getRaiting?: any
+  bookId?: string
 }

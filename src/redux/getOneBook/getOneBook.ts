@@ -19,6 +19,7 @@ const query = qs.stringify(
       categories: {
         fields: ['name', 'path', 'id'],
       },
+      comments: { fields: ['id', 'rating', 'text', 'createdcomment'] },
     },
   },
   {
@@ -54,7 +55,7 @@ const getOneBookReduser = createSlice({
         state.isError = false
       })
       .addCase(getOneBook.fulfilled, (state: any, action: PayloadAction<ICard>) => {
-        state.books = action.payload
+        state.book = action.payload
         state.isLoading = false
         state.isError = false
       })

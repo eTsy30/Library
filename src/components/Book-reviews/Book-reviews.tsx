@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { v4 as uuidv4 } from 'uuid'
 
@@ -13,16 +13,40 @@ import {
   TextDescription,
 } from './Book-reviews-style'
 
+import { Comments } from 'components/Comments/Comments'
 import { StarReiting } from 'components/Star-reiting'
+import { getComments } from 'redux/getComments/getComments'
+import { setActiveModalMenu } from 'redux/IsActiveModalMenu/IsActiveModalMenu'
+import { useAppDispatch, useAppSelector } from 'store/hook'
 
-export const BookReviews = ({ reviews }: any) => {
+export const BookReviews = ({ bookID }: any) => {
+  const dispach = useAppDispatch()
+
+  useEffect(() => {
+    dispach(getComments(bookID))
+  }, [])
+
+  const dataReviews = useAppSelector((state) => {
+    return state.getCommentsReduser.comments
+  })
+  const isActive = useAppSelector((state) => state.IsActiveModalMenuReduser.value)
   const [isOpenBook, setIsOpenBook] = useState(false)
+  const OpenWindowRaiting = () => {
+    dispach(setActiveModalMenu(!isActive))
+    window.scrollTo(0, 0)
+  }
 
+  const ownRaiting = (dataReviews: any[]) => {
+    const summRaiting = dataReviews.reduce((prev: any, curr: any) => {
+      return prev + curr.attributes.rating
+    }, 0)
+    return summRaiting / dataReviews.length
+  }
   return (
     <Container>
       <HeadWrapper>
         <h3>
-          Отзывы <span>{reviews.length}</span>
+          Отзывы <span>{dataReviews.length}</span>
         </h3>
         <StrokeButton
           data-test-id='button-hide-reviews'
@@ -32,24 +56,32 @@ export const BookReviews = ({ reviews }: any) => {
           }}
         />
       </HeadWrapper>
-      {reviews.map(
+      <Comments rating={ownRaiting(dataReviews)} bookId={bookID} />
+      {dataReviews.map(
         (review: any, index: any) =>
           isOpenBook && (
-            <ListReviews key={uuidv4()}>
-              <li>
-                <Text>
-                  <Avatar src={review.avatar} alt='Logo' />
-                  {review.username}
-                  <span>{review.date}</span>
-                </Text>
-                <StarReiting rating={review.score} />
-                <TextDescription>{review?.message}</TextDescription>
-              </li>
-            </ListReviews>
+            <>
+              <ListReviews key={uuidv4()}>
+                <li>
+                  <Text>
+                    <Avatar
+                      src={`${process.env.REACT_APP_API_IMG}${review.attributes.user.data[0].attributes.avatar.data[0].attributes.url}`}
+                      alt='Logo'
+                    />
+                    {review.attributes.user.data[0].attributes.firstName +
+                      ' ' +
+                      review.attributes.user.data[0].attributes.lastName}
+                    <span>{review.attributes?.createdcomment}</span>
+                  </Text>
+                  <StarReiting rating={review.attributes?.rating} />
+                  {/* <>{setRaiting(review.attributes?.rating)}</> */}
+                  <TextDescription>{review?.attributes?.text}</TextDescription>
+                </li>
+              </ListReviews>
+            </>
           ),
       )}
-
-      <Button data-test-id='button-rating' type='button'>
+      <Button onClick={OpenWindowRaiting} type='button'>
         оценить книгу
       </Button>
     </Container>

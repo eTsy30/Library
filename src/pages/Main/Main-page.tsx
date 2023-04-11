@@ -6,7 +6,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Container, Content, Main, WarningMessage, Wrapper } from './Main-page-style'
 
 import { Error } from 'components/Alert-error'
-import { Footer } from 'components/Footer'
+import { Comments } from 'components/Comments/Comments'
+import { Footer } from 'components/Footer/Footer'
 import { Header } from 'components/Header/Header'
 import { ListofCard } from 'components/ListofCard'
 import { Spiner } from 'components/Loader-spiner'
@@ -15,12 +16,15 @@ import { Navigation } from 'components/Navigation'
 import { NavigationMenu } from 'components/Navigation-menu'
 import { PopUpMenu } from 'components/popUpMenu/PopUpMenu'
 import { useWidth } from 'hooks/use-width'
-import { setPopUpMenyActive } from 'redux/activePopUpMenu/activePopUpMenu'
-import { setforgotPassword } from 'redux/forgot-password/forgotPassword'
 import { getAllBooks } from 'redux/getBook/getBooks'
+import { getComments } from 'redux/getComments/getComments'
+import { setActiveModalMenu } from 'redux/IsActiveModalMenu/IsActiveModalMenu'
+import { commetnPost } from 'redux/postComments/postComments'
 import { useAppDispatch, useAppSelector } from 'store/hook'
 
 export const MainPage = () => {
+  const isActive = useAppSelector((state) => state.IsActiveModalMenuReduser.value)
+
   const [direction, setDirection] = useState()
   const handleChange = (diretion: SetStateAction<undefined>) => setDirection(diretion)
   const width = useWidth()
@@ -30,8 +34,6 @@ export const MainPage = () => {
   const categories = useAppSelector((state) => state.getCategoriReduser.categories)
   const path = useAppSelector((state) => state.setCategory.categorii)
   const searshValue = useAppSelector((state) => state.setSearchValue.value)
-  const jwt = useAppSelector((state) => state.singInReduser.token)
-  const login = useAppSelector((state: any) => state.singInReduser.user)
   const userSingIn = localStorage.getItem('userSingIn') ? true : false
   const popUp = useAppSelector((state) => state.isActivePopUpMenuReduser.isActiveBurger)
   useEffect(() => (path === '' ? setCategori('all') : setCategori(path)), [path])
@@ -62,24 +64,25 @@ export const MainPage = () => {
   if (!userSingIn) {
     navigate('/SingIn')
   }
+
+  const dadacom = {
+    book: '2',
+    createdcomment: '2023-03-30',
+    rating: '5',
+    text: ',,,,,mmkm',
+    user: '19',
+  }
+
   return (
     <>
       <Wrapper $isScroll={books ? 'scroll' : 'hidden'}>
         <Container>
           {isError ? <Error /> : ''}
+          <button onClick={() => dispach(commetnPost(dadacom))}>SeND</button>
           <Header imgAvatar='https://avatars.mds.yandex.net/i?id=2fd47a896e5c07a593a1521c677d9d73f43c45fa-5870396-images-thumbs&n=13' />
           {popUp && <PopUpMenu />}
-          <Link to={`/Registr`}> REGISTR</Link>
-          <br />
-          <Link to={`/SingIn`}> SingIn</Link>
-          <br />
-          <Link to={`/FogotPassword`} onClick={() => dispach(setforgotPassword())}>
-            FogotPassword
-          </Link>{' '}
-          <br />
-          <button onClick={() => dispach(setPopUpMenyActive(!popUp))}>popUpActive</button>
-          <Link to={`/RevertPassword`}> RevertPassword</Link>
-          <h3>{popUp}</h3>
+          <button onClick={() => dispach(setActiveModalMenu(!isActive))}>modal</button>
+          <button onClick={() => dispach(getComments('1'))}>categorii</button>
           <Main>
             {window.innerWidth >= 768 ? <NavigationMenu /> : ''}
             <Content>
@@ -97,6 +100,8 @@ export const MainPage = () => {
         <Footer />
       </Wrapper>
       {width < 768 ? <ModalMenu /> : ''}
+
+      <Comments rating={4} />
     </>
   )
 }
