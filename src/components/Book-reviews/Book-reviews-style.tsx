@@ -110,6 +110,10 @@ export const Button = styled.button`
   letter-spacing: 0.2px;
   text-transform: uppercase;
   color: #ffffff;
+  &:disabled {
+    background: #ebebeb;
+    color: #ffffff;
+  }
 
   @media screen and (max-width: 768px) {
     height: 52px;
@@ -149,4 +153,12 @@ export const HeadWrapper = styled.div`
   justify-content: flex-start;
   flex-wrap: wrap;
   margin: 16px 0px;
+`
+export const UserNameLabel = styled.span`
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  align-items: center;
+  letter-spacing: 0.1px;
+  color: #727272;
 `

@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -7,10 +8,13 @@ import { Button } from 'components/Button'
 
 import { ModalContainer } from 'components/ModalContainer/ModalContainer'
 import { StarReiting } from 'components/Star-reiting'
-import { Star } from 'components/Star-reiting/Star'
 
+import { getComments } from 'redux/getComments/getComments'
+import { setActiveErrorFly } from 'redux/IsActiveErrorFly/IsActiveErrorFly'
+import { setActiveModalMenu } from 'redux/IsActiveModalMenu/IsActiveModalMenu'
 import { commetnPost } from 'redux/postComments/postComments'
-import { useAppDispatch } from 'store/hook'
+import { updateRaiting } from 'redux/updateRaiting/updateRaiting'
+import { useAppDispatch, useAppSelector } from 'store/hook'
 import { Irating } from 'types/rating'
 
 type Comment = {
@@ -21,9 +25,10 @@ type Comment = {
   book: string
 }
 
-const CommentPost = () => {}
 export const Comments = ({ rating, bookId }: Irating) => {
   const dispach = useAppDispatch()
+  const isActive = useAppSelector((state) => state.IsActiveModalMenuReduser.value)
+  const allComents = useAppSelector((state) => state.getCommentsReduser.raiting)
 
   const [nevRaiting, setNevRaiting] = useState(rating ? rating : 0)
   const {
@@ -36,15 +41,24 @@ export const Comments = ({ rating, bookId }: Irating) => {
     setNevRaiting(raiting)
   }
 
-  const onSubmit = (data: any) => {
+  const onSubmit = async (data: any) => {
     const postData = {
       rating: nevRaiting.toString(),
       text: data?.text.toString(),
       createdcomment: new Date().toISOString().slice(0, 10),
-      user: localStorage.getItem('idUser'),
-      book: bookId,
+      user: Number(localStorage.getItem('idUser')),
+      book: Number(bookId),
     }
+    const updateDataRaiting = { id: Number(bookId), raiting: (allComents + nevRaiting) / 2 }
+
     dispach(commetnPost(postData))
+    dispach(getComments(bookId ? bookId : ''))
+    dispach(
+      setActiveErrorFly({ successStatus: false, openError: true, textMsg: 'Спасибо, что нашли время оценить книгу!' }),
+    )
+    dispach(updateRaiting(updateDataRaiting))
+    reset()
+    dispach(setActiveModalMenu(!isActive))
   }
   return (
     <ModalContainer>
@@ -53,7 +67,7 @@ export const Comments = ({ rating, bookId }: Irating) => {
         <SubTitle>Ваша оценка</SubTitle>
         <StarReiting rating={0} getRaiting={handlRaiting} />
         <TextArea {...register('text', { required: true })} />
-        <Button text='оценить' onClick={CommentPost} width={'fullWidth'} />
+        <Button text='оценить' width={'fullWidth'} />
       </ContainerForm>
     </ModalContainer>
   )

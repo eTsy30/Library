@@ -7,6 +7,7 @@ import { Container, Content, Main, WarningMessage, Wrapper } from './Main-page-s
 
 import { Error } from 'components/Alert-error'
 import { Comments } from 'components/Comments/Comments'
+import { ErrorFly } from 'components/ErrorFly/ErrorFly'
 import { Footer } from 'components/Footer/Footer'
 import { Header } from 'components/Header/Header'
 import { ListofCard } from 'components/ListofCard'
@@ -18,13 +19,12 @@ import { PopUpMenu } from 'components/popUpMenu/PopUpMenu'
 import { useWidth } from 'hooks/use-width'
 import { getAllBooks } from 'redux/getBook/getBooks'
 import { getComments } from 'redux/getComments/getComments'
+import { setActiveErrorFly } from 'redux/IsActiveErrorFly/IsActiveErrorFly'
 import { setActiveModalMenu } from 'redux/IsActiveModalMenu/IsActiveModalMenu'
-import { commetnPost } from 'redux/postComments/postComments'
 import { useAppDispatch, useAppSelector } from 'store/hook'
 
 export const MainPage = () => {
   const isActive = useAppSelector((state) => state.IsActiveModalMenuReduser.value)
-
   const [direction, setDirection] = useState()
   const handleChange = (diretion: SetStateAction<undefined>) => setDirection(diretion)
   const width = useWidth()
@@ -36,6 +36,7 @@ export const MainPage = () => {
   const searshValue = useAppSelector((state) => state.setSearchValue.value)
   const userSingIn = localStorage.getItem('userSingIn') ? true : false
   const popUp = useAppSelector((state) => state.isActivePopUpMenuReduser.isActiveBurger)
+  const erroFlywindow = useAppSelector((state) => state.isActiveErrorFly)
   useEffect(() => (path === '' ? setCategori('all') : setCategori(path)), [path])
 
   function getFilteredBooks(books: any, id: any) {
@@ -59,35 +60,51 @@ export const MainPage = () => {
   const navigate = useNavigate()
   useEffect(() => {
     dispach(getAllBooks())
-  }, [dispach])
+  }, [dispach, erroFlywindow])
 
   if (!userSingIn) {
     navigate('/SingIn')
   }
 
-  const dadacom = {
-    book: '2',
-    createdcomment: '2023-03-30',
-    rating: '5',
-    text: ',,,,,mmkm',
-    user: '19',
-  }
-
   return (
     <>
+      {isLoading ? <Spiner /> : ''}
       <Wrapper $isScroll={books ? 'scroll' : 'hidden'}>
+        <ErrorFly />
         <Container>
           {isError ? <Error /> : ''}
-          <button onClick={() => dispach(commetnPost(dadacom))}>SeND</button>
           <Header imgAvatar='https://avatars.mds.yandex.net/i?id=2fd47a896e5c07a593a1521c677d9d73f43c45fa-5870396-images-thumbs&n=13' />
           {popUp && <PopUpMenu />}
-          <button onClick={() => dispach(setActiveModalMenu(!isActive))}>modal</button>
-          <button onClick={() => dispach(getComments('1'))}>categorii</button>
+          <button
+            onClick={() =>
+              dispach(
+                setActiveErrorFly({
+                  successStatus: true,
+                  openError: false,
+                  textMsg: 'Оценка не была отправлена. Попробуйте позже!',
+                }),
+              )
+            }
+          >
+            'close'
+          </button>
+          <button
+            onClick={() =>
+              dispach(
+                setActiveErrorFly({
+                  successStatus: false,
+                  openError: true,
+                  textMsg: 'Спасибо, что нашли время оценить книгу!',
+                }),
+              )
+            }
+          >
+            open
+          </button>
           <Main>
             {window.innerWidth >= 768 ? <NavigationMenu /> : ''}
             <Content>
               <Navigation onChange={handleChange} />
-              {isLoading ? <Spiner /> : ''}
               {books.length > 0 ? (
                 <ListofCard bookArr={bookArr} direction={direction} />
               ) : (
@@ -95,12 +112,10 @@ export const MainPage = () => {
               )}
             </Content>
           </Main>
-          )
         </Container>
         <Footer />
       </Wrapper>
       {width < 768 ? <ModalMenu /> : ''}
-
       <Comments rating={4} />
     </>
   )

@@ -35,9 +35,8 @@ const BigImg = styled.img`
   }
 `
 
-export const SliderImage = ({ image }: ICard) => {
+export const SliderImage = ({ image }: any) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<any | null>(null)
-
   return image!.length > 0 ? (
     <div className='qwe'>
       <Swiper
@@ -54,9 +53,9 @@ export const SliderImage = ({ image }: ICard) => {
         className='mySwiper2 slider__second'
       >
         {image &&
-          image.map((img: string | undefined) => (
+          image.map((img: any) => (
             <SwiperSlide key={uuidv4()}>
-              <BigImg alt='d' src={img} />
+              <BigImg alt='d' src={process.env.REACT_APP_API_IMG + img?.attributes.url} />
             </SwiperSlide>
           ))}
       </Swiper>
@@ -73,9 +72,9 @@ export const SliderImage = ({ image }: ICard) => {
         className='mySwiper slider__main'
       >
         {image &&
-          image.map((img: string | undefined) => (
+          image.map((img: any) => (
             <SwiperSlide key={uuidv4()} data-test-id='slide-mini'>
-              <img alt='d' className='slider__image' src={img} />
+              <img alt='d' className='slider__image' src={process.env.REACT_APP_API_IMG + img?.attributes.url} />
             </SwiperSlide>
           ))}
       </Swiper>

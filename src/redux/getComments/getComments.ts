@@ -1,10 +1,11 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 const initialState = {
   comments: [],
   isLoading: false,
   isError: false,
+  raiting: 0,
 }
 
 const qs = require('qs')
@@ -21,7 +22,7 @@ const query = qs.stringify(
     },
   },
   {
-    encodeValuesOnly: true, // prettify URL
+    encodeValuesOnly: true,
   },
 )
 export const getComments = createAsyncThunk('get/getComments', async (id: string, { rejectWithValue }) => {
@@ -57,6 +58,8 @@ const getCommentsReduser = createSlice({
         state.comments = action.payload
         state.isLoading = false
         state.isError = false
+        state.raiting =
+          action.payload.reduce((sum: any, count: any) => sum + count.attributes.rating, 0) / action.payload.length
       })
       .addCase(getComments.rejected, (state) => {
         state.isLoading = false

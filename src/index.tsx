@@ -7,6 +7,7 @@ import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
 
 import { GlobalStyle } from './GlobalStyle'
 
+import { ErrorFly } from 'components/ErrorFly/ErrorFly'
 import { SeeSoon } from 'components/SeeSoon/SeeSoon'
 import { BookPage } from 'pages/Book'
 import { FogotPassword } from 'pages/FogotPassword/FogotPassword'
@@ -23,6 +24,7 @@ root.render(
   <>
     <Provider store={store}>
       <GlobalStyle />
+
       <HashRouter>
         <Routes>
           <Route path='books/*'>

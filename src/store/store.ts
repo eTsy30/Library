@@ -12,13 +12,14 @@ import setCategory from 'redux/getCategorii/getCategorii'
 import getCommentsReduser from 'redux/getComments/getComments'
 import getOneBookReduser from 'redux/getOneBook/getOneBook'
 import isActiveBookMenu from 'redux/IsActiveBookMenu/IsActiveBookMenu'
+import isActiveErrorFly from 'redux/IsActiveErrorFly/IsActiveErrorFly'
 import IsActiveModalMenuReduser from 'redux/IsActiveModalMenu/IsActiveModalMenu'
 import commetnPostReduser from 'redux/postComments/postComments'
 import registrUserReduser from 'redux/registrateUser/registrateUser'
 import revertPasswordReduser from 'redux/revertPassword/revertPassword'
 import setSearchValue from 'redux/setSearch/setSearch'
 import singInReduser from 'redux/singIn/singIn'
-
+import updateRaitingReduser from 'redux/updateRaiting/updateRaiting'
 export const store = configureStore({
   reducer: {
     isActiveBurger,
@@ -39,6 +40,8 @@ export const store = configureStore({
     IsActiveModalMenuReduser,
     getCommentsReduser,
     commetnPostReduser,
+    isActiveErrorFly,
+    updateRaitingReduser,
   },
 })
 export type RootState = ReturnType<typeof store.getState>
