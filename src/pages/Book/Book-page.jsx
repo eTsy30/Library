@@ -15,6 +15,7 @@ import { Error } from 'components/Alert-error'
 import { BookInformation } from 'components/Book-information/Book-information'
 import { BookPresent } from 'components/Book-present/Book-present'
 import { BookReviews } from 'components/Book-reviews/Book-reviews'
+import { ErrorFly } from 'components/ErrorFly/ErrorFly'
 import { Footer } from 'components/Footer/Footer'
 import { Header } from 'components/Header'
 import { Spiner } from 'components/Loader-spiner'
@@ -27,20 +28,22 @@ import { books } from 'test/categorii'
 export const BookPage = () => {
   const { bookId } = useParams()
   const dispach = useAppDispatch()
+  const { book, isError } = useAppSelector((state) => state.getOneBookReduser)
   const bookInformation = useMemo(() => books.find((book) => book.id === bookId), [bookId])
   useEffect(() => {
     dispach(getOneBook(bookId))
   }, [dispach])
-  const { book, isError } = useAppSelector((state) => state.getOneBookReduser)
+
   return (
-    <Container data-test-id='card'>
-      <Wrapper>
-        <WrapperHead>
-          {isError ? <Error /> : ''}
-          <Header imgAvatar='https://avatars.mds.yandex.net/i?id=2fd47a896e5c07a593a1521c677d9d73f43c45fa-5870396-images-thumbs&n=13' />
-        </WrapperHead>
-        {book ? (
-          book && (
+    <>
+      {book ? (
+        <Container data-test-id='card'>
+          <Wrapper>
+            <WrapperHead>
+              {isError ? <Error /> : ''}
+              <ErrorFly />
+              <Header imgAvatar='https://avatars.mds.yandex.net/i?id=2fd47a896e5c07a593a1521c677d9d73f43c45fa-5870396-images-thumbs&n=13' />
+            </WrapperHead>
             <div className='qwe'>
               <PathComponent
                 categiria={book?.attributes?.categories.data[0].attributes.name}
@@ -49,7 +52,7 @@ export const BookPage = () => {
               />
               <Content>
                 <BookPresent
-                  image={bookInformation.img}
+                  image={book?.attributes?.image.data}
                   description={book?.attributes?.description}
                   autor={book?.attributes?.authors}
                   title={book?.attributes?.title}
@@ -58,21 +61,20 @@ export const BookPage = () => {
                   <RaytingTitle>Рейтинг</RaytingTitle>
                   <RaytingContainer>
                     <StarReiting rating={book?.attributes?.rating} />
-                    <span>{book?.attributes?.ratin}</span>
                   </RaytingContainer>
                 </RaytingWrapper>
                 <BookInformation information={book?.attributes} />
                 <BookReviews bookID={bookId} />
               </Content>
             </div>
-          )
-        ) : (
-          <Spiner />
-        )}
-      </Wrapper>
-      <WrapperHead>
-        <Footer />
-      </WrapperHead>
-    </Container>
+          </Wrapper>
+          <WrapperHead>
+            <Footer />
+          </WrapperHead>
+        </Container>
+      ) : (
+        <Spiner />
+      )}
+    </>
   )
 }

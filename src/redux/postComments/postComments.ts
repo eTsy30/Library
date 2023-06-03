@@ -1,6 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios, { AxiosError } from 'axios'
 
+import { getComments } from 'redux/getComments/getComments'
+import { setActiveErrorFly } from 'redux/IsActiveErrorFly/IsActiveErrorFly'
+
+import { useAppDispatch } from 'store/hook'
+
 const initialState = {
   comment: {},
   isLoading: false,
@@ -24,19 +29,11 @@ export const commetnPost = createAsyncThunk('post/comment', async (commetData: a
       {
         headers: {
           'Content-Type': 'application/json',
-          //   Authorization: 'berer' + process.env.REACT_APP_API_TOKEN,
         },
       },
     )
-    if (response.statusText !== 'OK') {
-      throw new Error('Errore!')
-    }
-
-    return 'good'
+    return response.data
   } catch (error) {
-    if (`${(error as AxiosError)?.response?.status}` === '400') {
-      return rejectWithValue('400')
-    }
     return rejectWithValue('bad')
   }
 })
@@ -50,10 +47,8 @@ const commetnPostReduser = createSlice({
         state.isLoading = true
       })
       .addCase(commetnPost.fulfilled, (state: any, action: any) => {
-        state.user = action.payload?.user
-        state.token = action.payload?.jwt
+        state.comment = action.payload
         state.isLoading = false
-        state.Error = 'good'
       })
       .addCase(commetnPost.rejected, (state, action: any) => {
         state.isLoading = false
